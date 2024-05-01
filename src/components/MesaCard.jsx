@@ -1,6 +1,6 @@
 import { Card, Text } from "react-native-paper";
-import { Button, Avatar } from "react-native-paper";
-import { StyleSheet, View } from "react-native";
+import { Avatar } from "react-native-paper";
+import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
     card: {
@@ -28,7 +28,7 @@ const style = StyleSheet.create({
 });
 
 export default function MesaCard () {
-    const RightContent = (props) => <Avatar.Icon icon="checkbox-blank-circle" color="green" size={30} style={ style.avatar}/>
+    const RightContent = (props) => <Avatar.Icon icon="checkbox-blank-circle" color="green" size={30} style={ style.avatar }/>
 
     return (
         <Card style={ style.card }>
