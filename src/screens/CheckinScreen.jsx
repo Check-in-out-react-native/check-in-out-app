@@ -1,9 +1,9 @@
 import { View, Text } from "react-native-web";
 
-export function PainelScreen() {
+export function CheckinScreen() {
     return (
         <View>
-            <Text>Aqui está a tela painel</Text>
+            <Text>Aqui está a tela de espera</Text>
         </View>
     )
 }

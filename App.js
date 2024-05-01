@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
-import { BottomNav } from './BottomNav';
+import { BottomNav } from './src/BottomNav';
 const theme = {
   ...DefaultTheme,
   colors: {
