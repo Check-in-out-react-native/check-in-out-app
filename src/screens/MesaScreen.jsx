@@ -13,12 +13,11 @@ const style = StyleSheet.create({
         width: '90%'
     }
 });
-
+//colocar scroll
 export function MesaScreen() {
     return (
         <View style={ style.view }>
-            {/* <Text>Não há mesas a serem exibidas</Text> */}
-            <MesaCard/>
+            {[1,2,3,4,5, 6, 7, 8, 9, 10, 11].map(p => <MesaCard idMesa={p} key={p}/>)} 
         </View>
     )
 }
