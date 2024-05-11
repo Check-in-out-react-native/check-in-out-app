@@ -4,39 +4,40 @@ import { MesaScreen } from "./screens/MesaScreen";
 import { EsperaScreen } from "./screens/EsperaScreen";
 import { CheckinScreen } from "./screens/CheckinScreen";
 import { createStackNavigator } from '@react-navigation/stack';
-import { MesaDetalheScreen } from "./screens/MesaDetalhesScreen";
-import { useRoute } from "@react-navigation/native";
-
-export function BottomNav () {
-    return (
-      <Tab.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => <Icon source={ getTabBarIcon(route.name, focused) } size={ size } color={ color } />,
-              tabBarActiveTintColor: 'tomato',
-              tabBarInactiveTintColor: 'gray',
-          })}
-      >
-        <Tab.Screen name="Espera" component={EsperaScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Check-in" component={CheckinScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Mesas" component={StackNavigator} options={{ headerShown: false }} />
-      </Tab.Navigator>
-    );
-}
+import MesaDetalheScreen from "./screens/MesaDetalhesScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const StackNavigator = () => {
-  const getRouteTitle = (route) => {
-    return `Mesa ${route?.params?.mesaId}`
-  }
+export function BottomNav () {  
+  const StackNavigator = () => {
+
+    return (
+      <Stack.Navigator
+        screenOptions={({ route }) => ({
+          headerTitle: (route.name === 'MesaDetalhe' ? `Mesa ${route?.params?.mesaId}` : route.name)
+        })}
+      >
+        <Stack.Screen name='MesasStack' component={MesaScreen} />
+        <Stack.Screen  name='MesaDetalhe' component={MesaDetalheScreen} />
+      </Stack.Navigator>
+    );
+  };
+
   return (
-    <Stack.Navigator >
-      <Stack.Screen name='Mesas' component={MesaScreen} options={{ headerShown: false }} />
-      <Stack.Screen options={({route}) => ({ headerTitle: () => getRouteTitle(route) })}  name={'MesaDetalhe'} component={MesaDetalheScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator
+        screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => <Icon source={ getTabBarIcon(route.name, focused) } size={ size } color={ color } />,
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray'
+      })}
+    >
+      <Tab.Screen name="Espera" component={EsperaScreen} />
+      {/* <Tab.Screen name="Check-in" component={CheckinScreen} /> */}
+      <Tab.Screen name="Mesas" component={StackNavigator} options={{ headerShown: false }} />
+    </Tab.Navigator>
   );
-};
+}
 
 
 function getTabBarIcon (routeName, focused) {

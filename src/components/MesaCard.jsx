@@ -1,8 +1,6 @@
 import { Card, Text, TouchableRipple } from "react-native-paper";
 import { Avatar } from "react-native-paper";
 import { StyleSheet } from "react-native";
-import { useEffect } from "react";
-import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
 const style = StyleSheet.create({
@@ -33,26 +31,16 @@ const style = StyleSheet.create({
 
 export default function MesaCard ({idMesa}) {   
     const navigation = useNavigation();
-    
-    // useEffect(() => {
-    //     axios.get('https://mobilesatc2024.000webhostapp.com/listar_mesas.php', {
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     }).then(response => {
-    //         if (response.status === 200) {
-    //             setMesas(response.data);
-    //         } else {
-    //             console.error(`Error ${response.status}: ${response.statusText}`);
-    //         }
-    //     });
-    // }, []);
-
     const RightContent = (props) => <Avatar.Icon icon="checkbox-blank-circle" color="green" size={30} style={ style.avatar }/>
 
     const mesa = () => {
-        navigation.navigate('MesaDetalhe', { mesaId: idMesa })
+        navigation.navigate('MesaDetalhe', {
+            mesaId: idMesa,
+            status: 0,
+            qntd: 5
+        });
     };
+
     return (
         <Card style={ style.card } onPress={mesa}>
             <Card.Title 
