@@ -3,13 +3,38 @@ import { Avatar } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+const MesaCard = ({ mesa }) => {
+    const { id_mesa, qtd_lugares, reserva } = mesa;
+    const navigation = useNavigation();
+    const status = reserva ? 'Disponível' : 'Reservada'
+
+    const RightContent = () => <Avatar.Icon icon="checkbox-blank-circle" color={ !reserva ? 'green' : 'red' } size={30} style={ style.avatar }/>
+
+    const mesaDetalhe = () => navigation.navigate('MesaDetalhe', { id_mesa, reserva, qtd_lugares });
+
+    return (
+        <Card style={ style.card } onPress={mesaDetalhe}>
+            <Card.Title 
+                title={ `Mesa ${id_mesa}` }
+                titleStyle={ style.title.titleStyle } 
+                subtitle={ status } 
+                subtitleStyle={ style.title.subtitleStyle } 
+                rightStyle={ style.title.titleRightStyle } 
+                right={RightContent}
+            />
+            <Card.Content>
+                <Text variant="labelSmall">{`Lugares: ${qtd_lugares}`}</Text>
+            </Card.Content>
+        </Card>
+    );
+};
+
 const style = StyleSheet.create({
     card: {
         width: "48%" 
     },
     avatar: {
         backgroundColor: null,
-        color: 'green',
         fontSize: 10
     },
     title: {
@@ -28,33 +53,4 @@ const style = StyleSheet.create({
     }
 });
 
-
-export default function MesaCard ({idMesa}) {   
-    const navigation = useNavigation();
-    const RightContent = (props) => <Avatar.Icon icon="checkbox-blank-circle" color="green" size={30} style={ style.avatar }/>
-
-    const mesa = () => {
-        navigation.navigate('MesaDetalhe', {
-            mesaId: idMesa,
-            status: 0,
-            qntd: 5
-        });
-    };
-
-    return (
-        <Card style={ style.card } onPress={mesa}>
-            <Card.Title 
-                title={ `Mesa ${idMesa}` }
-                titleStyle={ style.title.titleStyle } 
-                subtitle="Disponível" 
-                subtitleStyle={ style.title.subtitleStyle } 
-                rightStyle={ style.title.titleRightStyle } 
-                right={RightContent}
-            />
-            <Card.Content>
-                <Text variant="labelSmall">2 lugares</Text>
-            </Card.Content>
-        </Card>
-    );
-}
-
+export default MesaCard;

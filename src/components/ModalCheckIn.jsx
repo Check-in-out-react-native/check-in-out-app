@@ -18,7 +18,7 @@ const titleModalStyle = {
     justifyContent: 'space-between'
 }
 
-const ModalCheckIn = ({mesa, setVisible, visible}) => {
+const ModalCheckIn = ({ mesa_id, setVisible, visible }) => {
     const [reserva, setReserva] = useState({
         value: '',
         list: [
@@ -38,13 +38,13 @@ const ModalCheckIn = ({mesa, setVisible, visible}) => {
     return (
         <Portal>
             <Modal visible={visible} dismissable={false} contentContainerStyle={modalStyle}>
-                <Surface elevation={0}  style={titleModalStyle}>
-                    <Text style={{ fontSize: 20 }}>Check-in mesa {mesa.mesaId}</Text>
-                    <IconButton icon="close" onPress={hideModal} style={{width: 20}} />
+                <Surface elevation={0}  style={ titleModalStyle }>
+                    <Text style={{ fontSize: 20 }}>Check-in mesa { mesa_id }</Text>
+                    <IconButton icon="close" onPress={ hideModal } style={{ width: 20 }} />
                 </Surface>
                 <PaperSelect
                     label="Reservar para"
-                    value={reserva.value}
+                    value={ reserva.value }
                     onSelection={(value) => {
                     setReserva({
                             ...reserva,
@@ -54,14 +54,14 @@ const ModalCheckIn = ({mesa, setVisible, visible}) => {
                     }}
                     arrayList={[...reserva.list]}
                     selectedArrayList={[...reserva.selectedList]}
-                    multiEnable={false}
+                    multiEnable={ false }
                     theme={{
                         colors: {
                             primary: 'black'
                         }
                     }}
                 />
-                <Button mode='contained' onPress={checkIn}>Salvar</Button>
+                <Button mode='contained' onPress={ checkIn }>Salvar</Button>
             </Modal>
         </Portal>
     );

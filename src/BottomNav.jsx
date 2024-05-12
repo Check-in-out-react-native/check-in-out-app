@@ -15,10 +15,10 @@ export function BottomNav () {
     return (
       <Stack.Navigator
         screenOptions={({ route }) => ({
-          headerTitle: (route.name === 'MesaDetalhe' ? `Mesa ${route?.params?.mesaId}` : route.name)
+          headerTitle: (route.name === 'MesaDetalhe' ? `Mesa ${route?.params?.id_mesa}` : route.name)
         })}
       >
-        <Stack.Screen name='MesasStack' component={MesaScreen} />
+        <Stack.Screen name='Mesas' component={MesaScreen} />
         <Stack.Screen  name='MesaDetalhe' component={MesaDetalheScreen} />
       </Stack.Navigator>
     );
