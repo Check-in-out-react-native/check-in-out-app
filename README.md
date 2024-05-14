@@ -9,6 +9,7 @@ Este aplicativo React Native foi projetado para ajudar os restaurantes a gerenci
 
 ### Tecnologias utilizadas
 
+[![Expo][Expo.js]][Expo-url]
 [![React Native][ReactNative.js]][ReactNative-url]
 [![Axios][Axios.js]][Axios-url]
 [![JavaScript][JavaScript.js]][JavaScript-url]
@@ -19,8 +20,17 @@ Este aplicativo React Native foi projetado para ajudar os restaurantes a gerenci
 Para instalar o aplicativo, siga os seguintes passos:
 
 1. Clone o repositório do aplicativo.
-2. Execute o comando `npm install` para instalar as dependências do aplicativo.
-3. Execute o comando `npx expo start` para iniciar a aplicação.
+```sh
+    git clone https://github.com/Check-in-out-react-native/check-in-out-app.git
+```
+2. Execute o comando para instalar as dependências do aplicativo.
+```sh
+  npm install
+```
+4. Execute o comando para iniciar a aplicação.
+```sh
+  npx expo start
+```
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -62,3 +72,5 @@ Para instalar o aplicativo, siga os seguintes passos:
 [JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 [ReactNative.js]: https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [ReactNative-url]: https://reactnative.dev/
+[Expo.js]: https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white
+[Expo-url]: https://expo.dev/
