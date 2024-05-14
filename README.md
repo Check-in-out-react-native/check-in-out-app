@@ -27,7 +27,7 @@ Para instalar o aplicativo, siga os seguintes passos:
 ```sh
   npm install
 ```
-4. Execute o comando para iniciar a aplicação.
+3. Execute o comando para iniciar a aplicação.
 ```sh
   npx expo start
 ```
