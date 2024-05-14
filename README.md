@@ -39,6 +39,10 @@ Para instalar o aplicativo, siga os seguintes passos:
   npx expo start
 ```
 
+## Observação
+
+Utilize o aplicativo do Expo e escaneie o QR Code ou utilize web com o seguinte prompt:  ``` expo start --web```
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
