@@ -4,8 +4,8 @@ Este aplicativo React Native foi projetado para ajudar os restaurantes a gerenci
 
 ### Funcionalidades
 
-- Organização de mesas: o aplicativo permite que os gerentes de restaurante criem e gerenciem mesas, incluindo a capacidade de adicionar ou remover mesas, bem como atribuir mesas a clientes específicos.
-- Gerenciamento de filas: o aplicativo permite que os gerentes de restaurante gerenciem as filas de clientes, incluindo a capacidade de adicionar ou remover clientes da fila, bem como atribuir prioridade a clientes específicos.
+- <b>Organização de mesas:</b> o aplicativo permite que os gerentes de restaurante criem e gerenciem mesas, incluindo a capacidade de adicionar ou remover mesas, bem como atribuir mesas a clientes específicos.
+- <b>Gerenciamento de filas:</b> o aplicativo permite que os gerentes de restaurante gerenciem as filas de clientes, incluindo a capacidade de adicionar ou remover clientes da fila, bem como atribuir prioridade a clientes específicos.
 
 ### Tecnologias utilizadas
 
