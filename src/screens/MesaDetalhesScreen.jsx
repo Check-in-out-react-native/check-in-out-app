@@ -28,7 +28,7 @@ const MesaDetalheScreen = ( route ) => {
         <Text >
           Status { reserva ? 'reserva' : 'Ocupada' }
         </Text>
-        <Avatar.Icon icon="checkbox-blank-circle" color={ !reserva ? 'green' : 'red' } size={ 30 } style={ style.avatar }/>
+        {/* <Avatar.Icon icon="checkbox-blank-circle" color={ !reserva ? 'green' : 'red' } size={ 30 } style={ style.avatar }/> */}
       </Surface>
       <Surface style={ style.surface } elevation={ 0 }>
         <Text>Quantidade de lugares: { qtd_lugares }</Text> 
@@ -36,7 +36,7 @@ const MesaDetalheScreen = ( route ) => {
 
       { !reserva ? <Button mode='contained' style={{width: 200}} onPress={ showModal }>Check-in</Button> : <></> }
 
-      <ModalCheckIn setVisible={ setVisible } visible={ visible } id_mesa={ id_mesa }/>
+      {/* <ModalCheckIn setVisible={ setVisible } visible={ visible } id_mesa={ id_mesa }/> */}
     </Surface>
   );
 };

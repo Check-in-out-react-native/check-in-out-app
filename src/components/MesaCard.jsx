@@ -8,7 +8,7 @@ const MesaCard = ({ mesa }) => {
     const navigation = useNavigation();
     const status = reserva ? 'Disponível' : 'Reservada'
 
-    const RightContent = () => <Avatar.Icon icon="checkbox-blank-circle" color={ !reserva ? 'green' : 'red' } size={30} style={ style.avatar }/>
+    // const RightContent = () => <Avatar.Icon icon="checkbox-blank-circle" color={ !reserva ? 'green' : 'red' } size={30} style={ style.avatar }/>
 
     const mesaDetalhe = () => navigation.navigate('MesaDetalhe', { id_mesa, reserva, qtd_lugares });
 
@@ -20,7 +20,7 @@ const MesaCard = ({ mesa }) => {
                 subtitle={ status } 
                 subtitleStyle={ style.title.subtitleStyle } 
                 rightStyle={ style.title.titleRightStyle } 
-                right={RightContent}
+                /* right={RightContent} */
             />
             <Card.Content>
                 <Text variant="labelSmall">{`Lugares: ${qtd_lugares}`}</Text>

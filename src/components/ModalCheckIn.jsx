@@ -1,4 +1,4 @@
-import { Modal, Button, Portal, Surface, Icon, IconButton } from 'react-native-paper';
+import { Modal, Button, Portal, Surface } from 'react-native-paper';
 import { Text } from 'react-native';
 import { PaperSelect } from "react-native-paper-select";
 import { useState } from 'react';
@@ -40,9 +40,9 @@ const ModalCheckIn = ({ mesa_id, setVisible, visible }) => {
             <Modal visible={visible} dismissable={false} contentContainerStyle={modalStyle}>
                 <Surface elevation={0}  style={ titleModalStyle }>
                     <Text style={{ fontSize: 20 }}>Check-in mesa { mesa_id }</Text>
-                    <IconButton icon="close" onPress={ hideModal } style={{ width: 20 }} />
+                    {/* <IconButton icon="close" onPress={ hideModal } style={{ width: 20 }} /> */}
                 </Surface>
-                <PaperSelect
+                {/* <PaperSelect
                     label="Reservar para"
                     value={ reserva.value }
                     onSelection={(value) => {
@@ -60,7 +60,7 @@ const ModalCheckIn = ({ mesa_id, setVisible, visible }) => {
                             primary: 'black'
                         }
                     }}
-                />
+                /> */}
                 <Button mode='contained' onPress={ checkIn }>Salvar</Button>
             </Modal>
         </Portal>
