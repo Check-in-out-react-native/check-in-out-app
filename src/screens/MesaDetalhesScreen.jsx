@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
 import { Avatar, Surface, Button } from 'react-native-paper';
-import { StyleSheet } from 'react-native-web';
+import { StyleSheet } from 'react-native';
 import ModalCheckIn from '../components/ModalCheckIn';
 
 const MesaDetalheScreen = ( route ) => {

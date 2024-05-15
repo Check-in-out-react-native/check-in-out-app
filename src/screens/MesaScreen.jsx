@@ -1,8 +1,8 @@
-import { View, StyleSheet } from "react-native-web";
+import { View, StyleSheet } from "react-native";
 import MesaCard from "../components/MesaCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ActivityIndicator } from "react-native-web";
+import { ActivityIndicator } from "react-native";
 
 const style = StyleSheet.create({
     view: {

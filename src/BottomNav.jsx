@@ -18,7 +18,7 @@ export function BottomNav () {
           headerTitle: (route.name === 'MesaDetalhe' ? `Mesa ${route?.params?.id_mesa}` : route.name)
         })}
       >
-        <Stack.Screen name='Mesas' component={MesaScreen} />
+        <Stack.Screen name='Listar Mesas' component={MesaScreen} />
         <Stack.Screen  name='MesaDetalhe' component={MesaDetalheScreen} />
       </Stack.Navigator>
     );
@@ -27,14 +27,13 @@ export function BottomNav () {
   return (
     <Tab.Navigator
         screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => <Icon source={ getTabBarIcon(route.name, focused) } size={ size } color={ color } />,
+        tabBarIcon: ({focused, color, size}) => <Icon source={ getTabBarIcon(route.name, focused) } size={ size } color={ color } />,
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray'
       })}
     >
-      <Tab.Screen name="Espera" component={EsperaScreen} />
-      {/* <Tab.Screen name="Check-in" component={CheckinScreen} /> */}
-      <Tab.Screen name="Mesas" component={StackNavigator} options={{ headerShown: false }} />
+      <Tab.Screen name="Espera" component={ EsperaScreen } />
+      <Tab.Screen name="Mesas" component={StackNavigator } options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }

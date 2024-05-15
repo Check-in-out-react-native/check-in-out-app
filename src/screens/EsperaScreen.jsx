@@ -1,4 +1,4 @@
-import { View, Text } from "react-native-web";
+import { View } from "react-native";
 import { Icon, List } from "react-native-paper";
 
 export function EsperaScreen() {
