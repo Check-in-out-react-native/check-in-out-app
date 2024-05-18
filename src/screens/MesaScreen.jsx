@@ -4,30 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ActivityIndicator } from "react-native";
 
-const style = StyleSheet.create({
-    view: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: "wrap",
-        gap: 10,
-        marginLeft: "auto",
-        marginRight: "auto",
-        marginTop: 10,
-        width: '90%'
-    },
-    whiteOverlay: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'center'      
-     }
-});
-
 //colocar scroll
-export function MesaScreen() {
+const MesaScreen = () => {
     const [mesas, setMesas] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -55,4 +33,28 @@ export function MesaScreen() {
             } 
         </View>
     )
-}
+};
+
+const style = StyleSheet.create({
+    view: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: "wrap",
+        gap: 10,
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: 10,
+        width: '90%'
+    },
+    whiteOverlay: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center'      
+     }
+});
+
+export { MesaScreen };

@@ -1,4 +1,4 @@
-// import { Icon } from "react-native-paper";
+import { Icon } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MesaScreen } from "./screens/MesaScreen";
 import { EsperaScreen } from "./screens/EsperaScreen";
@@ -27,7 +27,7 @@ export function BottomNav () {
   return (
     <Tab.Navigator
         screenOptions={({ route }) => ({
-        // tabBarIcon: ({focused, color, size}) => <Icon source={ getTabBarIcon(route.name, focused) } size={ size } color={ color } />,
+        tabBarIcon: ({focused, color, size}) => <Icon source={ getTabBarIcon(route.name, focused) } size={ size } color={ color } />,
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray'
       })}
