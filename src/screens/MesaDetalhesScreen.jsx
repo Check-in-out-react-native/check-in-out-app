@@ -9,7 +9,17 @@ const MesaDetalheScreen = ( route ) => {
   const [visible, setVisible] = useState(false);
 
   const showModal = () => setVisible(true);
-
+  const fazerCheckout = () => {
+   // const dto = {id_cliente:}
+    setLoading(true);
+        axios.post('https://mobile2024.000webhostapp.com/excluir_cliente_fila.php' , new URLSearchParams(dto))
+        .then(response => {
+            if (response.status === 200) {
+            } else {
+                console.error(`Error ${response.status}: ${response.statusText}`);
+            }
+        });
+  }
   const style = StyleSheet.create({
     avatar: {
         backgroundColor: null,
@@ -30,11 +40,15 @@ const MesaDetalheScreen = ( route ) => {
         </Text>
         <Avatar.Icon icon="checkbox-blank-circle" color={ !reserva ? 'green' : 'red' } size={ 30 } style={ style.avatar }/>
       </Surface>
+
       <Surface style={ style.surface } elevation={ 0 }>
         <Text>Quantidade de lugares: { qtd_lugares }</Text> 
       </Surface>
 
-      { !reserva ? <Button mode='contained' style={{width: 200}} onPress={ showModal }>Check-in</Button> : <></> }
+      { 
+        !reserva ? 
+          <Button mode='contained' style={{width: 200}} onPress={ showModal }>Check-in</Button>
+           : <Button mode='contained' style={{width: 200}} onPress={ fazerCheckout }>Check-out</Button> }
 
       <ModalCheckIn setVisible={ setVisible } visible={ visible } id_mesa={ id_mesa }/>
     </Surface>
