@@ -43,6 +43,21 @@ Para instalar o aplicativo, siga os seguintes passos:
 
 Utilize o aplicativo do Expo e escaneie o QR Code ou utilize web com o seguinte prompt:  ``` expo start --web```
 
+## Requisitos Obrigatórios
+
+- [x] No mínimo 4 telas
+- [x] Nome e ícone do App personalizado
+- [x] Persistência dos dados
+- [ ] No mínimo 2 operações no estilo CRUD (Cadastro, edição, listagem, exclusão).
+
+## Requisitos Opcionais
+
+- [ ] Mapas e geolocalização
+- [x] Criar uma API online para persistência dos dados ou utilizar o Firebase
+- [ ] Integração com um App WEB já existente
+- [x] Integração com alguma API externa
+- [ ] Publicar o App
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
