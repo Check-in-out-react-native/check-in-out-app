@@ -7,18 +7,29 @@ import ModalCheckIn from '../components/ModalCheckIn';
 const MesaDetalheScreen = ( route ) => {
   const { id_mesa, reserva, qtd_lugares } = route.route.params;
   const [visible, setVisible] = useState(false);
+  const [clienteId, setClienteId] = useState(null);
 
   const showModal = () => setVisible(true);
   const fazerCheckout = () => {
-   // const dto = {id_cliente:}
-    setLoading(true);
-        axios.post('https://mobile2024.000webhostapp.com/excluir_cliente_fila.php' , new URLSearchParams(dto))
-        .then(response => {
-            if (response.status === 200) {
-            } else {
-                console.error(`Error ${response.status}: ${response.statusText}`);
-            }
-        });
+  const dto = {
+      id_cliente: clienteId,
+      id_mesa: id_mesa
+    };
+    axios.post('https://mobile2024.000webhostapp.com/fazer_checkout.php', dto)
+      .then(response => {
+        setLoading(false);
+        setClienteId(response.data)
+
+        if (response.status === 200) {
+          console.log('Check-out realizado com sucesso');
+        } else {
+          console.error(`Erro ${response.status}: ${response.statusText}`);
+        }
+      })
+      .catch(error => {
+        setLoading(false);
+        console.error('Erro ao fazer o check-out:', error);
+      });
   }
   const style = StyleSheet.create({
     avatar: {
