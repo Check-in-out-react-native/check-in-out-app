@@ -10,8 +10,18 @@ const EsperaScreen = () => {
     const [loading, setLoading] = useState(true);
     const [reservas, setReservas] = useState([]);
 
-    const TrashIcon = () => <List.Icon icon="trash-can" />;
     const showModal = () => setVisible(true);
+
+    const excluirEspera = (id) => {
+        axios.post('https://mobile2024.000webhostapp.com/excluir_cliente_fila.php', new URLSearchParams({ id_cliente: id }))
+            .then(response => {
+                if (response.status === 200) {
+                    setReservas(reservas.filter(p => p.id_cliente !== id));
+                } else {
+                    console.error(`Error ${response.status}: ${response.statusText}`);
+                }
+            });
+    };
 
     useEffect(() => {
         axios.get('https://mobile2024.000webhostapp.com/fila_de_espera.php', {
@@ -22,12 +32,13 @@ const EsperaScreen = () => {
             if (response.status === 200) {
                 setLoading(false);
                 setReservas(response.data);
-                console.log(response.data)
             } else {
                 console.error(`Error ${response.status}: ${response.statusText}`);
             }
         });
     }, []);
+
+    const TrashIcon = ({id}) => <IconButton icon="trash-can" onPress={() => excluirEspera(id)}/>;
 
     return (
         <View style={ loading ? style.whiteOverlay : style.view }>
@@ -36,12 +47,18 @@ const EsperaScreen = () => {
                 loading ? <ActivityIndicator animating={loading} color='blue' size='large' />
                 : (
                     <List.Section>
-                        <List.Subheader style={{fontSize: 25, display: 'flex', alignItems: 'center'}}>
+                        <List.Subheader style={{fontSize: 15, display: 'flex', alignItems: 'center'}}>
                             Adicionar reserva 
-                            <IconButton size={35} icon='plus-circle' onPress={showModal}></IconButton>
+                            <IconButton size={25} icon='plus-circle' iconColor="green" onPress={showModal}></IconButton>
                         </List.Subheader>
                         {
-                            reservas.map((p, i) => <List.Item key={i} title={p.nome_cliente} right={TrashIcon} />)
+                            reservas.map((p) => 
+                                <List.Item 
+                                    key={p.id_cliente} 
+                                    title={p.nome_cliente} 
+                                    right={() => <TrashIcon id={p.id_cliente} />} 
+                                />
+                            )
                         }
                     </List.Section>
                 )

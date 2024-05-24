@@ -1,7 +1,8 @@
 import { Modal, Button, Portal, Surface, IconButton } from 'react-native-paper';
 import { Text } from 'react-native';
 import { PaperSelect } from "react-native-paper-select";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const modalStyle = {
     backgroundColor: 'white', 
@@ -19,23 +20,36 @@ const titleModalStyle = {
     justifyContent: 'space-between'
 };
 
-const ModalCheckIn = ({ mesa_id, setVisible, visible }) => {
+const ModalCheckIn = ({ mesa_id, setVisible, visible, qtd_lugares }) => {
     const [reserva, setReserva] = useState({
         value: '',
-        list: [
-          { _id: '1', value: 'Lucas' },
-          { _id: '2', value: 'Gustavo' },
-          { _id: '3', value: 'Vinicius' },
-          { _id: '4', value: 'Tiago' }
-        ],
+        list: [],
         selectedList: [],
         error: '',
-      });
+    });
+
+    useEffect(() => {
+        axios.post('https://mobile2024.000webhostapp.com/clientes_por_qtd.php', new URLSearchParams({ qtd_lugares }))
+            .then(response => {
+                const success = response.status === 200;
+                if(success) {
+                    setReserva({
+                        value: '',
+                        list: response.data.map(p => ({ _id: p.id_cliente, value: p.nome_cliente })),
+                        selectedList: [],
+                        error: '',
+                      })
+                } else {
+                }
+            });
+    }, []);
 
     const hideModal = () => setVisible(false);
+
     const checkIn = function () {
-        alert()
-      };
+        axios.post
+    };
+
     return (
         <Portal>
             <Modal visible={visible} dismissable={false} contentContainerStyle={modalStyle}>
@@ -67,4 +81,5 @@ const ModalCheckIn = ({ mesa_id, setVisible, visible }) => {
         </Portal>
     );
 };
+
 export default ModalCheckIn;

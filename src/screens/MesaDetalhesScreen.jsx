@@ -36,7 +36,7 @@ const MesaDetalheScreen = ( route ) => {
 
       { !reserva ? <Button mode='contained' style={{width: 200}} onPress={ showModal }>Check-in</Button> : <></> }
 
-      <ModalCheckIn setVisible={ setVisible } visible={ visible } id_mesa={ id_mesa }/>
+      <ModalCheckIn setVisible={ setVisible } visible={ visible } id_mesa={ id_mesa } qtd_lugares={qtd_lugares}/>
     </Surface>
   );
 };
