@@ -9,11 +9,6 @@
 
 ##
 
-### Funcionalidades
-
-- <b>Organização de mesas:</b> o aplicativo permite que os gerentes de restaurante criem e gerenciem mesas, incluindo a capacidade de adicionar ou remover mesas, bem como atribuir mesas a clientes específicos.
-- <b>Gerenciamento de filas:</b> o aplicativo permite que os gerentes de restaurante gerenciem as filas de clientes, incluindo a capacidade de adicionar ou remover clientes da fila, bem como atribuir prioridade a clientes específicos.
-
 ### Tecnologias utilizadas
 
 [![Expo][Expo.js]][Expo-url]
@@ -21,6 +16,28 @@
 [![Axios][Axios.js]][Axios-url]
 [![JavaScript][JavaScript.js]][JavaScript-url]
 [![PHP][PHP.js]][PHP-url]
+
+### Funcionalidades
+
+- <b>Organização de mesas:</b> o aplicativo permite que os gerentes de restaurante criem e gerenciem mesas, incluindo a capacidade de adicionar ou remover mesas, bem como atribuir mesas a clientes específicos.
+- <b>Gerenciamento de filas:</b> o aplicativo permite que os gerentes de restaurante gerenciem as filas de clientes, incluindo a capacidade de adicionar ou remover clientes da fila, bem como atribuir prioridade a clientes específicos.
+
+
+## Requisitos Obrigatórios
+
+- [] No mínimo 4 telas
+- [x] Nome e ícone do App personalizado
+- [x] Persistência dos dados
+- [ ] No mínimo 2 operações no estilo CRUD (Cadastro, edição, listagem, exclusão).
+
+## Requisitos Opcionais
+
+- [ ] Mapas e geolocalização
+- [x] Criar uma API online para persistência dos dados ou utilizar o Firebase
+- [ ] Integração com um App WEB já existente
+- [x] Integração com alguma API externa
+- [ ] Publicar o App
+
 
 ### Instalação e execução
 
