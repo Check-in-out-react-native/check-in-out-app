@@ -10,11 +10,14 @@ import { fetchCheckOut } from '../services';
 const MesaDetalheScreen = ( route ) => {
   const [visible, setVisible] = useState(false);
   const { principal, setPrincipal, setNotificacao } = useContext(PrincipalContext);
+
   const showModal = () => setVisible(true);
+
   const fazerCheckout = () => {
     const dto = {
       id_mesa: principal.mesaEdit.id_mesa
     };
+  
     fetchCheckOut(dto, () => {
       setNotificacao({
         msg: 'Check out realizado com sucesso!',
@@ -29,7 +32,7 @@ const MesaDetalheScreen = ( route ) => {
   }, []);
 
   return (
-    <Surface elevation={ 0 } style={{ gap: 30 }}>
+    <Surface elevation={ 0 } style={{ gap: 30, margin: 30 }}>
       <Surface style={ style.surface } elevation={ 0 }>
         <Text >
           Status { principal.mesaEdit.reserva ? 'reservada' : 'disponível' }

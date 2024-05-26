@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native-web';
 import { PrincipalContext } from '../context/PrincipalProvider';
 
 const ModalCheckIn = ({setVisible, visible}) => {
-    const { principal, setPrincipa } = useContext(PrincipalContext);
+    const { principal, setPrincipal, setNotificacao } = useContext(PrincipalContext);
     const [reserva, setReserva] = useState({
         value: '',
         list: [],
@@ -21,7 +21,7 @@ const ModalCheckIn = ({setVisible, visible}) => {
                 value: '',
                 list: data?.map(p => ({ _id: p.id_cliente, value: p.nome_cliente })),
                 selectedList: [],
-                error: '',
+                error: 'Não',
             })
         });
     }, [principal.mesaEdit.id_mesa]);
@@ -29,10 +29,27 @@ const ModalCheckIn = ({setVisible, visible}) => {
     const hideModal = () => setVisible(false);
 
     const checkIn = () => {
+        const cbSuccess = () => {
+            setNotificacao({ 
+                msg: 'Check in realizado com sucesso!', 
+                success: true, 
+                visible: true 
+            });
+            hideModal();
+        };
+        const cbError = () => {
+            hideModal();
+            setNotificacao({ 
+                msg: 'Não foi possível realizar o check in', 
+                success: false, 
+                visible: true 
+            });
+        };
+
         fetchCheckinCliente({
             id_cliente: reserva.selectedList[0]._id,
             id_mesa: principal.mesaEdit.id_mesa
-        }, () => setVisible(false));
+        }, cbSuccess, cbError);
     };
 
     return (

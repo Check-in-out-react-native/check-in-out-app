@@ -18,20 +18,29 @@ const ModalEspera = ({setVisible, visible}) => {
             qtd_pessoas: qntdPessoas
         };
 
-        const cb = (data) => { 
+        const cbSuccess = (data) => { 
             setPrincipal((prev) => ({
                 ...prev, 
                 espera: [...prev.espera, { nome_cliente: nome, id_cliente: data.id_cliente }] 
             }));
         
+            hideModal();
+
             setNotificacao({ 
                 visible: true,
                 success: true, 
                 msg: 'Espera salva com sucesso!' 
             });
         };
+        const cbError = () => {
+            setNotificacao({ 
+                visible: true,
+                success: false, 
+                msg: 'Não foi possível salvar espera!' 
+            });
+        };
 
-        fetchEnviarClienteFila(dto, cb);
+        fetchEnviarClienteFila(dto, cbSuccess, cbError);
     };
 
     return (

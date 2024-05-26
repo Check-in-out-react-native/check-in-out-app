@@ -14,52 +14,52 @@ const fetchEspera = (cb) => {
     axios.get(`${baseUrl}fila_de_espera.php`)
         .then(response => {
             if (response.status === 200) cb(response.data);
-            else console.error(`Error ${response.status}: ${response.statusText}`);
         });
 };
 
-const fetchExcluirCliente = (dto, cb) => {
+const fetchExcluirCliente = (dto, cbSuccess, cbError) => {
     axios.post(`${baseUrl}excluir_cliente_fila.php`, new URLSearchParams(dto))
         .then(response => {
-            if (response.status === 200) cb();
-            else console.error(`Error ${response.status}: ${response.statusText}`);
-        });
+            if (response.status === 200) return cbSuccess();
+            else cbError();
+        })
 };
 
-const fetchClientePorQtd = (dto, cb) => {
+const fetchClientePorQtd = (dto, cbSuccess, cbError) => {
     axios.post(`${baseUrl}clientes_por_qtd.php`, new URLSearchParams(dto))
         .then(response => {
             const success = response.status === 200;
 
-            if(success) cb(response.data);
-        });
+            if(success) return cbSuccess(response.data);
+            else cbError();
+        })
 };
 
-const fetchEnviarClienteFila = (dto, cb) => {
+const fetchEnviarClienteFila = (dto, cbSuccess, cbError) => {
     axios.post(`${baseUrl}enviar_cliente_fila.php`, new URLSearchParams(dto))
         .then(response => {
             const success = response.status === 200;
 
-            if(success) return cb(response.data);
-            else console.error(`Error ${response.status}: ${response.statusText}`);
+            if(success) return cbSuccess(response.data);
+            else cbError();
         });
 };
 
-const fetchCheckOut = (dto, cb) => {
+const fetchCheckOut = (dto, cbSuccess, cbError) => {
     axios.post(`${baseUrl}excluir_cliente_mesa.php`, new URLSearchParams(dto))
         .then(response => {
-            if (response.status === 200) cb();
-            else console.error(`Erro ${response.status}: ${response.statusText}`);
+            if (response.status === 200) cbSuccess();
+            else cbError();
         });
 };
 
-const fetchCheckinCliente = (dto, cb) => {
+const fetchCheckinCliente = (dto, cbSuccess, cbError) => {
     axios.post(`${baseUrl}checkin_cliente_da_fila.php`, new URLSearchParams(dto))
         .then(response => {
             const success = response.status === 200;
 
-            if(success) cb();
-            else console.error(`Error ${response.status}: ${response.statusText}`);
+            if(success) return cbSuccess();
+            else cbError();
         });
 }
 

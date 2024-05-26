@@ -20,7 +20,7 @@ const MesaScreen = () => {
     return (
         <View style={ loading ? style.whiteOverlay : style.view }>
             { 
-                loading ? <ActivityIndicator animating={loading} color='blue' size='large' />
+                loading ? <ActivityIndicator animating={loading} color='orange' size='large' />
                 : principal.mesas.map((p, key) => <MesaCard mesa={p} key={key}/>)
             } 
         </View>

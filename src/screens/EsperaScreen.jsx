@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import {  List, IconButton } from "react-native-paper";
+import {  List, IconButton, Text } from "react-native-paper";
 import ModalEspera from "../components/ModalEspera";
 import { useContext, useEffect, useState } from "react";
 import { ActivityIndicator } from "react-native";
@@ -14,7 +14,7 @@ const EsperaScreen = () => {
     const showModal = () => setVisible(true);
 
     const excluirEspera = (id) => {
-        fetchExcluirCliente({ id_cliente: id }, () => {
+        const cbSuccess = () => {
             setPrincipal((prev) => ({
                 ...prev, 
                 espera: prev.espera.filter(p => p.id_cliente !== id )
@@ -24,7 +24,16 @@ const EsperaScreen = () => {
                 success: true, 
                 visible: true 
             });
-        });
+        };
+
+        const cbError = () => {
+            setNotificacao({ 
+                msg: 'Não ppossível remover a espera', 
+                success: false, 
+                visible: true 
+            });
+        }
+        fetchExcluirCliente({ id_cliente: id }, cbSuccess, cbError);
     };
 
     useEffect(() => {
@@ -41,19 +50,22 @@ const EsperaScreen = () => {
         <View style={ loading ? style.whiteOverlay : style.view }>
             <ModalEspera setVisible={setVisible} visible={visible}/>
             { 
-                loading ? <ActivityIndicator animating={loading} color='blue' size='large' />
+                loading ? <ActivityIndicator animating={loading} color='orange' size='large' />
                 : (
-                    <List.Section>
-                        <List.Subheader style={{fontSize: 15, display: 'flex', alignItems: 'center'}}>
-                            Adicionar reserva 
-                            <IconButton size={25} icon='plus-circle' iconColor="green" onPress={showModal}></IconButton>
-                        </List.Subheader>
+                    <List.Section style={{width: '100%'}}>
+                        <List.Item 
+                            key={999} 
+                            title={'Nova espera'} 
+                            right={() => <IconButton size={25} style={{height: 25}} icon='plus-circle' iconColor="green" onPress={showModal} centered />}
+                            style={{display: 'flex', width: '100%'}}
+                        />
                         {
                             principal.espera.map((p) => 
                                 <List.Item 
                                     key={p.id_cliente} 
                                     title={p.nome_cliente} 
-                                    right={() => <TrashIcon id={p.id_cliente} />} 
+                                    right={() => <TrashIcon id={p.id_cliente} />}
+                                    style={{display: 'flex', width: '100%'}}
                                 />
                             )
                         }
@@ -70,10 +82,8 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: "wrap",
         gap: 10,
-        marginLeft: "auto",
-        marginRight: "auto",
         marginTop: 10,
-        width: '90%'
+        width: '100%'
     },
     whiteOverlay: {
         position: 'absolute',
