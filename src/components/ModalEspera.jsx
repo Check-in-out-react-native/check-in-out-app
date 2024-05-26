@@ -1,15 +1,14 @@
 import { Modal, Button, Portal, Surface, IconButton, TextInput, Icon } from 'react-native-paper';
 import { Text } from 'react-native';
 import { useState } from 'react';
-import axios from 'axios';
-import Notificacao from '../Notificacao';
+import { fetchEnviarClienteFila } from '../services';
+import { PrincipalContext } from '../context/PrincipalProvider';
+import { useContext } from 'react';
 
 const ModalEspera = ({setVisible, visible}) => {
-    const [notificar, setNotificar] = useState(false);
-    const [msg, setMsg] = useState('');
+    const {setNotificacao, setPrincipal} = useContext(PrincipalContext);
     const [qntdPessoas, setQntdPessoas] = useState(0);
     const [nome, setNome] = useState('');
-    const [success, setSuccess] = useState(false);
 
     const hideModal = () => setVisible(false);
 
@@ -19,25 +18,20 @@ const ModalEspera = ({setVisible, visible}) => {
             qtd_pessoas: qntdPessoas
         };
 
-        axios.post('https://mobile2024.000webhostapp.com/enviar_cliente_fila.php',  new URLSearchParams(dto))
-            .then(response => {
-                const success = response.status === 200;
-                if(success) {
-                    setMsg('Espera salva com sucesso!');
-                    setSuccess(success);
-                    setNotificar(true);
-                    setTimeout(() => {
-                        setNotificar(false);
-                    }, 2000);
-                } else {
-                    setSuccess(success);
-                    setMsg('Não foi possível salvar.');
-                    setNotificar(true);
-                    setTimeout(() => {
-                        setNotificar(false);
-                    }, 2000);
-                }
+        const cb = (data) => { 
+            setPrincipal((prev) => ({
+                ...prev, 
+                espera: [...prev.espera, { nome_cliente: nome, id_cliente: data.id_cliente }] 
+            }));
+        
+            setNotificacao({ 
+                visible: true,
+                success: true, 
+                msg: 'Espera salva com sucesso!' 
             });
+        };
+
+        fetchEnviarClienteFila(dto, cb);
     };
 
     return (
@@ -49,11 +43,8 @@ const ModalEspera = ({setVisible, visible}) => {
                 </Surface>
                 <TextInput label='Nome' onChangeText={(text) => setNome(text)}/>
                 <TextInput label='Quantidade de pessoas' onChangeText={(text) => setQntdPessoas(text)}/>
-                <Button mode='contained' onPress={ () => cadastrarEspera() }>Salvar</Button>
+                <Button mode='contained' onPress={ cadastrarEspera }>Salvar</Button>
             </Modal>
-            <Notificacao visible={ notificar } msg={msg}>
-                <Icon source={success ? "check-circle" : 'alpha-x-circle'} color={success ? 'green' : 'red'} size={20} />
-            </Notificacao>
         </Portal>
     );
 };

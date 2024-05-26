@@ -2,6 +2,8 @@ import * as React from 'react';
 import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
 import { BottomNav } from './src/BottomNav';
 import { NavigationContainer } from '@react-navigation/native';
+import { PrincipalProvider } from './src/context/PrincipalProvider';
+import Notificacao from './src/Notificacao';
 
 const theme = {
   ...DefaultTheme,
@@ -12,7 +14,9 @@ const theme = {
   },
 };
 
+
 const Navigation = () => {
+
   return (
     <NavigationContainer >
       <BottomNav />
@@ -23,7 +27,10 @@ const Navigation = () => {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <Navigation />
+      <PrincipalProvider>
+        <Notificacao/>
+        <Navigation />
+      </PrincipalProvider>
     </PaperProvider>
   );
 }

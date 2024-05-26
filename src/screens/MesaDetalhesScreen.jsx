@@ -1,69 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { Avatar, Surface, Button } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 import ModalCheckIn from '../components/ModalCheckIn';
+import { useContext } from 'react';
+import { PrincipalContext } from '../context/PrincipalProvider';
+import { fetchCheckOut } from '../services';
 
 const MesaDetalheScreen = ( route ) => {
-  const { id_mesa, reserva, qtd_lugares } = route.route.params;
   const [visible, setVisible] = useState(false);
-  const [clienteId, setClienteId] = useState(null);
-
+  const { principal, setPrincipal, setNotificacao } = useContext(PrincipalContext);
   const showModal = () => setVisible(true);
   const fazerCheckout = () => {
-  const dto = {
-      id_cliente: clienteId,
-      id_mesa: id_mesa
+    const dto = {
+      id_mesa: principal.mesaEdit.id_mesa
     };
-    axios.post('https://mobile2024.000webhostapp.com/fazer_checkout.php', dto)
-      .then(response => {
-        setLoading(false);
-        setClienteId(response.data)
-
-        if (response.status === 200) {
-          console.log('Check-out realizado com sucesso');
-        } else {
-          console.error(`Erro ${response.status}: ${response.statusText}`);
-        }
-      })
-      .catch(error => {
-        setLoading(false);
-        console.error('Erro ao fazer o check-out:', error);
+    fetchCheckOut(dto, () => {
+      setNotificacao({
+        msg: 'Check out realizado com sucesso!',
+        success: true,
+        visible: true
       });
-  }
-  const style = StyleSheet.create({
-    avatar: {
-        backgroundColor: null,
-        fontSize: 10
-    },
-    surface: {
-      display: 'flex', 
-      flexDirection: 'row', 
-      alignItems: 'center'
-    }
-  });
-  
+    });
+  };
+
+  useEffect(() => {
+    setPrincipal(prev => ({...prev, mesaEdit: route.route.params}));
+  }, []);
+
   return (
     <Surface elevation={ 0 } style={{ gap: 30 }}>
       <Surface style={ style.surface } elevation={ 0 }>
         <Text >
-          Status { reserva ? 'reserva' : 'Ocupada' }
+          Status { principal.mesaEdit.reserva ? 'reservada' : 'disponível' }
         </Text>
-        <Avatar.Icon icon="checkbox-blank-circle" color={ !reserva ? 'green' : 'red' } size={ 30 } style={ style.avatar }/>
+        <Avatar.Icon icon="checkbox-blank-circle" color={ principal.mesaEdit.reserva ? 'red' : 'green' } size={ 30 } style={ style.avatar }/>
       </Surface>
 
       <Surface style={ style.surface } elevation={ 0 }>
-        <Text>Quantidade de lugares: { qtd_lugares }</Text> 
+        <Text>Quantidade de lugares: { principal.mesaEdit.qtd_lugares }</Text> 
       </Surface>
 
       { 
-        !reserva ? 
+        !principal.mesaEdit.reserva ? 
           <Button mode='contained' style={{width: 200}} onPress={ showModal }>Check-in</Button>
-           : <Button mode='contained' style={{width: 200}} onPress={ fazerCheckout }>Check-out</Button> }
+          :
+          <Button mode='contained' style={{width: 200}} onPress={ fazerCheckout }>Check-out</Button> }
 
-      <ModalCheckIn setVisible={ setVisible } visible={ visible } id_mesa={ id_mesa } qtd_lugares={qtd_lugares}/>
+      <ModalCheckIn setVisible={ setVisible } visible={ visible } />
     </Surface>
   );
 };
+
+const style = StyleSheet.create({
+  avatar: {
+      backgroundColor: null,
+      fontSize: 10
+  },
+  surface: {
+    display: 'flex', 
+    flexDirection: 'row', 
+    alignItems: 'center'
+  }
+});
 
 export default MesaDetalheScreen;

@@ -2,7 +2,6 @@ import { Icon } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MesaScreen } from "./screens/MesaScreen";
 import { EsperaScreen } from "./screens/EsperaScreen";
-import { CheckinScreen } from "./screens/CheckinScreen";
 import { createStackNavigator } from '@react-navigation/stack';
 import MesaDetalheScreen from "./screens/MesaDetalhesScreen";
 

@@ -1,40 +1,37 @@
 import { View, StyleSheet } from "react-native";
 import {  List, IconButton } from "react-native-paper";
 import ModalEspera from "../components/ModalEspera";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ActivityIndicator } from "react-native";
-import axios from "axios";
+import { fetchEspera, fetchExcluirCliente } from "../services";
+import { PrincipalContext } from "../context/PrincipalProvider";
 
 const EsperaScreen = () => {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [reservas, setReservas] = useState([]);
+    const { principal, setPrincipal, setNotificacao } = useContext(PrincipalContext)
 
     const showModal = () => setVisible(true);
 
     const excluirEspera = (id) => {
-        axios.post('https://mobile2024.000webhostapp.com/excluir_cliente_fila.php', new URLSearchParams({ id_cliente: id }))
-            .then(response => {
-                if (response.status === 200) {
-                    setReservas(reservas.filter(p => p.id_cliente !== id));
-                } else {
-                    console.error(`Error ${response.status}: ${response.statusText}`);
-                }
+        fetchExcluirCliente({ id_cliente: id }, () => {
+            setPrincipal((prev) => ({
+                ...prev, 
+                espera: prev.espera.filter(p => p.id_cliente !== id )
+            }));
+            setNotificacao({ 
+                msg: 'Item excluído com sucesso!', 
+                success: true, 
+                visible: true 
             });
+        });
     };
 
     useEffect(() => {
-        axios.get('https://mobile2024.000webhostapp.com/fila_de_espera.php', {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
-            if (response.status === 200) {
-                setLoading(false);
-                setReservas(response.data);
-            } else {
-                console.error(`Error ${response.status}: ${response.statusText}`);
-            }
+        setLoading(true);
+        fetchEspera((data) => {
+            setLoading(false);
+            setPrincipal((prev) => ({...prev, espera: data}));
         });
     }, []);
 
@@ -52,7 +49,7 @@ const EsperaScreen = () => {
                             <IconButton size={25} icon='plus-circle' iconColor="green" onPress={showModal}></IconButton>
                         </List.Subheader>
                         {
-                            reservas.map((p) => 
+                            principal.espera.map((p) => 
                                 <List.Item 
                                     key={p.id_cliente} 
                                     title={p.nome_cliente} 

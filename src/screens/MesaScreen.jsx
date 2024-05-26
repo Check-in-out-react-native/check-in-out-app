@@ -1,27 +1,19 @@
 import { View, StyleSheet } from "react-native";
 import MesaCard from "../components/MesaCard";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { ActivityIndicator } from "react-native";
+import { PrincipalContext } from "../context/PrincipalProvider";
+import { fetchMesas } from "../services";
 
-//colocar scroll
 const MesaScreen = () => {
-    const [mesas, setMesas] = useState([]);
+    const { principal, setPrincipal } = useContext(PrincipalContext) ;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(true);
-        axios.get('https://mobile2024.000webhostapp.com/listar_mesas.php', {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
-            if (response.status === 200) {
-                setLoading(false);
-                setMesas(response.data);
-            } else {
-                console.error(`Error ${response.status}: ${response.statusText}`);
-            }
+        fetchMesas((data) => {
+            setLoading(false);
+            setPrincipal({...principal, mesas: data });
         });
     }, []);
 
@@ -29,7 +21,7 @@ const MesaScreen = () => {
         <View style={ loading ? style.whiteOverlay : style.view }>
             { 
                 loading ? <ActivityIndicator animating={loading} color='blue' size='large' />
-                : mesas.map(p => <MesaCard mesa={p} key={p?.id_mesa}/>)
+                : principal.mesas.map((p, key) => <MesaCard mesa={p} key={key}/>)
             } 
         </View>
     )

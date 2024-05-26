@@ -4,13 +4,12 @@ import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const MesaCard = ({ mesa }) => {
-    const { id_mesa, qtd_lugares, reserva } = mesa;
+    const { id_mesa, qtd_lugares, reserva: reservada } = mesa;
     const navigation = useNavigation();
-    const status = reserva ? 'Disponível' : 'Reservada'
-
-    const RightContent = () => <Avatar.Icon icon="checkbox-blank-circle" color={ !reserva ? 'green' : 'red' } size={30} style={ style.avatar }/>
-
-    const mesaDetalhe = () => navigation.navigate('MesaDetalhe', { id_mesa, reserva, qtd_lugares });
+    const status = reservada ? 'Reservada' : 'Disponível'
+    
+    const RightContent = () => <Avatar.Icon icon="checkbox-blank-circle" color={ reservada ? 'red' : 'green' } size={30} style={ style.avatar }/>
+    const mesaDetalhe = () => navigation.navigate('MesaDetalhe', { id_mesa, reserva: reservada, qtd_lugares });
 
     return (
         <Card style={ style.card } onPress={mesaDetalhe}>

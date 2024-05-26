@@ -1,26 +1,13 @@
 import { Modal, Button, Portal, Surface, IconButton } from 'react-native-paper';
 import { Text } from 'react-native';
 import { PaperSelect } from "react-native-paper-select";
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { fetchCheckinCliente, fetchClientePorQtd } from '../services';
+import { StyleSheet } from 'react-native-web';
+import { PrincipalContext } from '../context/PrincipalProvider';
 
-const modalStyle = {
-    backgroundColor: 'white', 
-    padding: 20,
-    width: '70%',
-    margin: 'auto',
-    gap: 10
-};
-
-const titleModalStyle = {
-    width: '100%', 
-    display: 'flex', 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'space-between'
-};
-
-const ModalCheckIn = ({ mesa_id, setVisible, visible, qtd_lugares }) => {
+const ModalCheckIn = ({setVisible, visible}) => {
+    const { principal, setPrincipa } = useContext(PrincipalContext);
     const [reserva, setReserva] = useState({
         value: '',
         list: [],
@@ -29,32 +16,30 @@ const ModalCheckIn = ({ mesa_id, setVisible, visible, qtd_lugares }) => {
     });
 
     useEffect(() => {
-        axios.post('https://mobile2024.000webhostapp.com/clientes_por_qtd.php', new URLSearchParams({ qtd_lugares }))
-            .then(response => {
-                const success = response.status === 200;
-                if(success) {
-                    setReserva({
-                        value: '',
-                        list: response.data.map(p => ({ _id: p.id_cliente, value: p.nome_cliente })),
-                        selectedList: [],
-                        error: '',
-                      })
-                } else {
-                }
-            });
-    }, []);
+        fetchClientePorQtd({ qtd_lugares: principal.mesaEdit.qtd_lugares }, (data) => {
+            setReserva({
+                value: '',
+                list: data?.map(p => ({ _id: p.id_cliente, value: p.nome_cliente })),
+                selectedList: [],
+                error: '',
+            })
+        });
+    }, [principal.mesaEdit.id_mesa]);
 
     const hideModal = () => setVisible(false);
 
-    const checkIn = function () {
-        axios.post
+    const checkIn = () => {
+        fetchCheckinCliente({
+            id_cliente: reserva.selectedList[0]._id,
+            id_mesa: principal.mesaEdit.id_mesa
+        }, () => setVisible(false));
     };
 
     return (
         <Portal>
-            <Modal visible={visible} dismissable={false} contentContainerStyle={modalStyle}>
-                <Surface elevation={0}  style={ titleModalStyle }>
-                    <Text style={{ fontSize: 20 }}>Check-in mesa { mesa_id }</Text>
+            <Modal visible={visible} dismissable={false} contentContainerStyle={style.modalStyle}>
+                <Surface elevation={0}  style={ style.titleModalStyle }>
+                    <Text style={{ fontSize: 20 }}>Check-in mesa { principal.mesaEdit.id_mesa }</Text>
                     <IconButton icon="close" onPress={ hideModal } style={{ width: 20 }} />
                 </Surface>
                 <PaperSelect
@@ -81,5 +66,21 @@ const ModalCheckIn = ({ mesa_id, setVisible, visible, qtd_lugares }) => {
         </Portal>
     );
 };
+const style = StyleSheet.create({
+    modalStyle: {
+        backgroundColor: 'white', 
+        padding: 20,
+        width: '70%',
+        margin: 'auto',
+        gap: 10
+    }, 
+    titleModalStyle: {
+        width: '100%', 
+        display: 'flex', 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'space-between'
+    }
+});
 
 export default ModalCheckIn;
