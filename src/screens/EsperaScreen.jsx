@@ -42,7 +42,7 @@ const EsperaScreen = () => {
             setLoading(false);
             setPrincipal((prev) => ({...prev, espera: data}));
         });
-    }, []);
+    }, [principal.mesas]);
 
     const TrashIcon = ({id}) => <IconButton icon="trash-can" onPress={() => excluirEspera(id)}/>;
 

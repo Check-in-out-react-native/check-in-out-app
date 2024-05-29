@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native-web';
 import { PrincipalContext } from '../context/PrincipalProvider';
 
 const ModalCheckIn = ({setVisible, visible}) => {
-    const { principal, setPrincipal, setNotificacao } = useContext(PrincipalContext);
+    const { principal, setPrincipal, setNotificacao, esperaCheckin } = useContext(PrincipalContext);
     const [reserva, setReserva] = useState({
         value: '',
         list: [],
@@ -16,15 +16,13 @@ const ModalCheckIn = ({setVisible, visible}) => {
     });
 
     useEffect(() => {
-        fetchClientePorQtd({ qtd_lugares: principal.mesaEdit.qtd_lugares }, (data) => {
-            setReserva({
-                value: '',
-                list: data?.map(p => ({ _id: p.id_cliente, value: p.nome_cliente })),
-                selectedList: [],
-                error: 'Não',
-            })
-        });
-    }, [principal.mesaEdit.id_mesa]);
+        setReserva({
+            value: '',
+            list: esperaCheckin?.map(p => ({ _id: p.id_cliente, value: p.nome_cliente })),
+            selectedList: [],
+            error: 'Não',
+        })
+    }, [esperaCheckin]);
 
     const hideModal = () => setVisible(false);
 
@@ -35,6 +33,7 @@ const ModalCheckIn = ({setVisible, visible}) => {
                 success: true, 
                 visible: true 
             });
+            setPrincipal((prev) => ({...prev, mesaEdit: { ...prev.mesaEdit, reserva: 1 } }));
             hideModal();
         };
         const cbError = () => {

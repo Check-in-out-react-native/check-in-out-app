@@ -16,8 +16,17 @@ const PrincipalProvider = ({children}) => {
         msg: ''
     });
 
+    const [esperaCheckin, setEsperaCheckin] = useState([]);
+
     return (
-        <PrincipalContext.Provider value={{ principal, setPrincipal, notificacao, setNotificacao }}>
+        <PrincipalContext.Provider value={{ 
+            principal, 
+            setPrincipal, 
+            notificacao, 
+            setNotificacao,
+            esperaCheckin,
+            setEsperaCheckin 
+        }}>
           {children}
         </PrincipalContext.Provider>
     );

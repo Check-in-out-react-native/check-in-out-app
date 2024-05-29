@@ -15,7 +15,7 @@ const MesaScreen = () => {
             setLoading(false);
             setPrincipal({...principal, mesas: data });
         });
-    }, []);
+    }, [principal.mesaEdit]);
 
     return (
         <View style={ loading ? style.whiteOverlay : style.view }>

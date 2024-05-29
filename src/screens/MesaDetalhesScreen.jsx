@@ -5,13 +5,29 @@ import { StyleSheet } from 'react-native';
 import ModalCheckIn from '../components/ModalCheckIn';
 import { useContext } from 'react';
 import { PrincipalContext } from '../context/PrincipalProvider';
-import { fetchCheckOut } from '../services';
+import { fetchCheckOut, fetchClientePorQtd } from '../services';
 
 const MesaDetalheScreen = ( route ) => {
   const [visible, setVisible] = useState(false);
-  const { principal, setPrincipal, setNotificacao } = useContext(PrincipalContext);
+  const { 
+    principal, 
+    setPrincipal, 
+    setNotificacao,
+    setEsperaCheckin 
+  } = useContext(PrincipalContext);
 
   const showModal = () => setVisible(true);
+
+  const fazerCheckin = () => {
+    fetchClientePorQtd({ qtd_lugares: principal.mesaEdit.qtd_lugares }, (data) => {
+      if (data.length) {
+        setEsperaCheckin(data);
+        showModal(data);
+      } else {
+        alert('Não há clientes na fila de espera!');
+      }
+    });
+  };
 
   const fazerCheckout = () => {
     const dto = {
@@ -46,7 +62,7 @@ const MesaDetalheScreen = ( route ) => {
 
       { 
         !principal.mesaEdit.reserva ? 
-          <Button mode='contained' style={{width: 200}} onPress={ showModal }>Check-in</Button>
+          <Button mode='contained' style={{width: 200}} onPress={ fazerCheckin }>Check-in</Button>
           :
           <Button mode='contained' style={{width: 200}} onPress={ fazerCheckout }>Check-out</Button> }
 
