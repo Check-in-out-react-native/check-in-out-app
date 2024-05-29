@@ -50,8 +50,8 @@ const ModalEspera = ({setVisible, visible}) => {
                     <Text style={{ fontSize: 20 }}>Cadastro de espera</Text>
                     <IconButton icon="close" onPress={ hideModal } style={{ width: 20 }} />
                 </Surface>
-                <TextInput label='Nome' onChangeText={(text) => setNome(text)}/>
-                <TextInput label='Quantidade de pessoas' keyboardType='number-pad' onChangeText={(text) => setQntdPessoas(text)}/>
+                <TextInput label='Nome' value={nome} onChangeText={(text) => setNome(text)}/>
+                <TextInput label='Quantidade de pessoas' value={qntdPessoas} keyboardType='number-pad' onChangeText={(text) => setQntdPessoas(text)}/>
                 <Button mode='contained' onPress={ cadastrarEspera }>Salvar</Button>
             </Modal>
         </Portal>
