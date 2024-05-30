@@ -20,7 +20,6 @@ const fetchEspera = (cb) => {
 const fetchExcluirCliente = (dto, cbSuccess, cbError) => {
     axios.post(`${baseUrl}excluir_cliente_fila.php`, new URLSearchParams(dto))
         .then(response => {
-            debugger
             if (response.status === 200) return cbSuccess();
         })
         .catch(() => cbError());
