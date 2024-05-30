@@ -1,10 +1,10 @@
-import { View, StyleSheet } from "react-native";
-import {  List, IconButton, Text } from "react-native-paper";
-import ModalEspera from "../components/ModalEpera/index";
+import { style } from "./style";
+import { View, ActivityIndicator } from "react-native";
+import {  List, IconButton } from "react-native-paper";
+import ModalEspera from "../../components/ModalEpera/index";
 import { useContext, useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
-import { fetchEspera, fetchExcluirCliente } from "../services";
-import { PrincipalContext } from "../context/PrincipalProvider";
+import { fetchEspera, fetchExcluirCliente } from "../../services";
+import { PrincipalContext } from "../../context/PrincipalProvider";
 
 const EsperaScreen = () => {
     const [visible, setVisible] = useState(false);
@@ -76,25 +76,5 @@ const EsperaScreen = () => {
         </View>
     );
 };
-
-const style = StyleSheet.create({
-    view: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: "wrap",
-        gap: 10,
-        marginTop: 10,
-        width: '100%'
-    },
-    whiteOverlay: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'center'      
-     }
-});
 
 export {EsperaScreen};

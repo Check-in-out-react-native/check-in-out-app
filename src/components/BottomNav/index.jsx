@@ -1,9 +1,9 @@
 import { Icon } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MesaScreen } from "../../screens/MesaScreen";
-import { EsperaScreen } from "../../screens/EsperaScreen";
+import { MesaScreen } from "../../screens/MesaScreen/index";
+import { EsperaScreen } from "../../screens/EsperaScreen/index";
 import { createStackNavigator } from '@react-navigation/stack';
-import MesaDetalheScreen from "../../screens/MesaDetalhesScreen";
+import MesaDetalheScreen from "../../screens/MesaDetalhesScreen/index";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

@@ -1,9 +1,9 @@
-import { View, StyleSheet } from "react-native";
-import MesaCard from "../components/MesaCard";
+import { style } from "./style";
+import { View, ActivityIndicator } from "react-native";
+import MesaCard from "../../components/MesaCard";
 import { useContext, useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
-import { PrincipalContext } from "../context/PrincipalProvider";
-import { fetchMesas } from "../services";
+import { PrincipalContext } from "../../context/PrincipalProvider";
+import { fetchMesas } from "../../services";
 
 const MesaScreen = () => {
     const { principal, setPrincipal } = useContext(PrincipalContext) ;
@@ -26,27 +26,5 @@ const MesaScreen = () => {
         </View>
     )
 };
-
-const style = StyleSheet.create({
-    view: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: "wrap",
-        gap: 10,
-        marginLeft: "auto",
-        marginRight: "auto",
-        marginTop: 10,
-        width: '90%'
-    },
-    whiteOverlay: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'center'      
-     }
-});
 
 export { MesaScreen };

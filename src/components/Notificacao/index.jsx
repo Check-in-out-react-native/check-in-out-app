@@ -11,7 +11,7 @@ const Notificacao = () => {
     if (notificacao.visible) {
       setTimeout(() => {
         setNotificacao((prev) => ({...prev, visible: false}));
-      }, 3000);
+      }, 2500);
     }
   }, [notificacao.visible]);
   

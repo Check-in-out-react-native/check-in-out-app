@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { style } from './style';
+import React, { useEffect, useState, useContext } from 'react';
 import { Text } from 'react-native';
 import { Avatar, Surface, Button } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
-import ModalCheckIn from '../components/ModalCheckin/index';
-import { useContext } from 'react';
-import { PrincipalContext } from '../context/PrincipalProvider';
-import { fetchCheckOut, fetchClientePorQtd } from '../services';
+import ModalCheckIn from '../../components/ModalCheckin/index';
+import { PrincipalContext } from '../../context/PrincipalProvider';
+import { fetchCheckOut, fetchClientePorQtd } from '../../services';
 
 const MesaDetalheScreen = ( route ) => {
   const [visible, setVisible] = useState(false);
@@ -72,17 +71,5 @@ const MesaDetalheScreen = ( route ) => {
     </Surface>
   );
 };
-
-const style = StyleSheet.create({
-  avatar: {
-      backgroundColor: null,
-      fontSize: 10
-  },
-  surface: {
-    display: 'flex', 
-    flexDirection: 'row', 
-    alignItems: 'center'
-  }
-});
 
 export default MesaDetalheScreen;
