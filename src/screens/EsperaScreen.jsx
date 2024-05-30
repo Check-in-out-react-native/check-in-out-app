@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import {  List, IconButton, Text } from "react-native-paper";
-import ModalEspera from "../components/ModalEspera";
+import ModalEspera from "../components/ModalEpera/index";
 import { useContext, useEffect, useState } from "react";
 import { ActivityIndicator } from "react-native";
 import { fetchEspera, fetchExcluirCliente } from "../services";
@@ -28,11 +28,12 @@ const EsperaScreen = () => {
 
         const cbError = () => {
             setNotificacao({ 
-                msg: 'Não ppossível remover a espera', 
+                msg: 'Não foi possível remover a espera', 
                 success: false, 
                 visible: true 
             });
-        }
+        };
+
         fetchExcluirCliente({ id_cliente: id }, cbSuccess, cbError);
     };
 

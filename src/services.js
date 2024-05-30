@@ -20,9 +20,10 @@ const fetchEspera = (cb) => {
 const fetchExcluirCliente = (dto, cbSuccess, cbError) => {
     axios.post(`${baseUrl}excluir_cliente_fila.php`, new URLSearchParams(dto))
         .then(response => {
+            debugger
             if (response.status === 200) return cbSuccess();
-            else cbError();
         })
+        .catch(() => cbError());
 };
 
 const fetchClientePorQtd = (dto, cbSuccess, cbError) => {
@@ -31,8 +32,8 @@ const fetchClientePorQtd = (dto, cbSuccess, cbError) => {
             const success = response.status === 200;
 
             if(success) return cbSuccess(response.data);
-            else cbError();
         })
+        .catch(() => cbError());
 };
 
 const fetchEnviarClienteFila = (dto, cbSuccess, cbError) => {
@@ -41,16 +42,16 @@ const fetchEnviarClienteFila = (dto, cbSuccess, cbError) => {
             const success = response.status === 200;
 
             if(success) return cbSuccess(response.data);
-            else cbError();
-        });
+        })
+        .catch(() => cbError());
 };
 
 const fetchCheckOut = (dto, cbSuccess, cbError) => {
     axios.post(`${baseUrl}excluir_cliente_mesa.php`, new URLSearchParams(dto))
         .then(response => {
             if (response.status === 200) cbSuccess();
-            else cbError();
-        });
+        })
+        .catch(() => cbError());
 };
 
 const fetchCheckinCliente = (dto, cbSuccess, cbError) => {
@@ -59,8 +60,8 @@ const fetchCheckinCliente = (dto, cbSuccess, cbError) => {
             const success = response.status === 200;
 
             if(success) return cbSuccess();
-            else cbError();
-        });
+        })
+        .catch(() => cbError());
 }
 
 export { 

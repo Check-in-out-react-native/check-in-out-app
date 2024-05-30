@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { Avatar, Surface, Button } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
-import ModalCheckIn from '../components/ModalCheckIn';
+import ModalCheckIn from '../components/ModalCheckin/index';
 import { useContext } from 'react';
 import { PrincipalContext } from '../context/PrincipalProvider';
 import { fetchCheckOut, fetchClientePorQtd } from '../services';
@@ -40,6 +40,8 @@ const MesaDetalheScreen = ( route ) => {
         success: true,
         visible: true
       });
+
+      setPrincipal((prev) => ({...prev, mesaEdit: { ...prev.mesaEdit, reserva: 0 } }));
     });
   };
 

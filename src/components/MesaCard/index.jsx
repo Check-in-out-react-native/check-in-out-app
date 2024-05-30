@@ -1,7 +1,7 @@
 import { Card, Text } from "react-native-paper";
 import { Avatar } from "react-native-paper";
-import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { style } from "./style";
 
 const MesaCard = ({ mesa }) => {
     const { id_mesa, qtd_lugares, reserva: reservada } = mesa;
@@ -27,29 +27,5 @@ const MesaCard = ({ mesa }) => {
         </Card>
     );
 };
-
-const style = StyleSheet.create({
-    card: {
-        width: "48%" 
-    },
-    avatar: {
-        backgroundColor: null,
-        fontSize: 10
-    },
-    title: {
-        titleRightStyle: {
-            position: "absolute", 
-            top: 7, 
-            right: 2
-        },
-        subtitleStyle: {
-            fontWeight: 100
-        },
-        titleStyle: {
-            fontSize: 20,
-            fontWeight: 500
-        }
-    }
-});
 
 export default MesaCard;

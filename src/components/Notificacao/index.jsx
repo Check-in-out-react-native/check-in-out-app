@@ -1,9 +1,8 @@
-import * as React from 'react';
+import { style } from './style';
 import { Banner } from 'react-native-paper';
 import {Icon} from 'react-native-paper';
-import { PrincipalContext } from './context/PrincipalProvider';
-import { useContext } from 'react';
-import { useEffect } from 'react';
+import { PrincipalContext } from '../../context/PrincipalProvider';
+import { useContext, useEffect } from 'react';
 
 const Notificacao = () => {
   const { notificacao, setNotificacao } = useContext(PrincipalContext);
@@ -12,7 +11,7 @@ const Notificacao = () => {
     if (notificacao.visible) {
       setTimeout(() => {
         setNotificacao((prev) => ({...prev, visible: false}));
-      }, 2000);
+      }, 3000);
     }
   }, [notificacao.visible]);
   
@@ -21,7 +20,9 @@ const Notificacao = () => {
   return (
     <Banner 
       visible={notificacao.visible} 
-      icon={ icon }>
+      icon={ icon }
+      style={style.banner}
+    >
       {notificacao.msg}
     </Banner>
   );

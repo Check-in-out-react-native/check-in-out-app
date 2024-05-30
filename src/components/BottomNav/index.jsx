@@ -1,9 +1,9 @@
 import { Icon } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MesaScreen } from "./screens/MesaScreen";
-import { EsperaScreen } from "./screens/EsperaScreen";
+import { MesaScreen } from "../../screens/MesaScreen";
+import { EsperaScreen } from "../../screens/EsperaScreen";
 import { createStackNavigator } from '@react-navigation/stack';
-import MesaDetalheScreen from "./screens/MesaDetalhesScreen";
+import MesaDetalheScreen from "../../screens/MesaDetalhesScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -17,7 +17,7 @@ export function BottomNav () {
           headerTitle: (route.name === 'MesaDetalhe' ? `Mesa ${route?.params?.id_mesa}` : route.name)
         })}
       >
-        <Stack.Screen name='Listar Mesas' component={MesaScreen} />
+        <Stack.Screen name='Lista Mesas' component={MesaScreen} />
         <Stack.Screen  name='MesaDetalhe' component={MesaDetalheScreen} />
       </Stack.Navigator>
     );

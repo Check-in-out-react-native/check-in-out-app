@@ -1,10 +1,10 @@
+import { style } from './style';
 import { Modal, Button, Portal, Surface, IconButton } from 'react-native-paper';
 import { Text } from 'react-native';
 import { PaperSelect } from "react-native-paper-select";
 import { useContext, useEffect, useState } from 'react';
-import { fetchCheckinCliente, fetchClientePorQtd } from '../services';
-import { StyleSheet } from 'react-native-web';
-import { PrincipalContext } from '../context/PrincipalProvider';
+import { fetchCheckinCliente } from '../../services';
+import { PrincipalContext } from '../../context/PrincipalProvider';
 
 const ModalCheckIn = ({setVisible, visible}) => {
     const { principal, setPrincipal, setNotificacao, esperaCheckin } = useContext(PrincipalContext);
@@ -82,21 +82,5 @@ const ModalCheckIn = ({setVisible, visible}) => {
         </Portal>
     );
 };
-const style = StyleSheet.create({
-    modalStyle: {
-        backgroundColor: 'white', 
-        padding: 20,
-        width: '70%',
-        margin: 'auto',
-        gap: 10
-    }, 
-    titleModalStyle: {
-        width: '100%', 
-        display: 'flex', 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'space-between'
-    }
-});
 
 export default ModalCheckIn;
