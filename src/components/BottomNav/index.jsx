@@ -4,6 +4,7 @@ import { MesaScreen } from "../../screens/MesaScreen/index";
 import { EsperaScreen } from "../../screens/EsperaScreen/index";
 import { createStackNavigator } from '@react-navigation/stack';
 import MesaDetalheScreen from "../../screens/MesaDetalhesScreen/index";
+import WelcomeScreen from "../../screens/InformacaoScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -33,6 +34,7 @@ export function BottomNav () {
     >
       <Tab.Screen name="Espera" component={ EsperaScreen } />
       <Tab.Screen name="Mesas" component={StackNavigator } options={{ headerShown: false }} />
+      <Tab.Screen name="Welcome" component={ WelcomeScreen } />
     </Tab.Navigator>
   );
 }
@@ -50,6 +52,9 @@ function getTabBarIcon (routeName, focused) {
       break;
     case 'Check-in':
       iconName = focused ? 'clipboard-check' : 'clipboard-check-outline';
+      break;
+    case 'Welcome':
+      iconName = 'book';
       break;
   }
 
