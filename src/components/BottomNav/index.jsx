@@ -1,10 +1,10 @@
 import { Icon } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MesaScreen } from "./screens/MesaScreen";
-import { EsperaScreen } from "./screens/EsperaScreen";
-import { CheckinScreen } from "./screens/CheckinScreen";
+import { MesaScreen } from "../../screens/MesaScreen/index";
+import { EsperaScreen } from "../../screens/EsperaScreen/index";
 import { createStackNavigator } from '@react-navigation/stack';
-import MesaDetalheScreen from "./screens/MesaDetalhesScreen";
+import MesaDetalheScreen from "../../screens/MesaDetalhesScreen/index";
+import WelcomeScreen from "../../screens/InformacaoScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -18,7 +18,7 @@ export function BottomNav () {
           headerTitle: (route.name === 'MesaDetalhe' ? `Mesa ${route?.params?.id_mesa}` : route.name)
         })}
       >
-        <Stack.Screen name='Listar Mesas' component={MesaScreen} />
+        <Stack.Screen name='Lista Mesas' component={MesaScreen} />
         <Stack.Screen  name='MesaDetalhe' component={MesaDetalheScreen} />
       </Stack.Navigator>
     );
@@ -34,6 +34,7 @@ export function BottomNav () {
     >
       <Tab.Screen name="Espera" component={ EsperaScreen } />
       <Tab.Screen name="Mesas" component={StackNavigator } options={{ headerShown: false }} />
+      <Tab.Screen name="Welcome" component={ WelcomeScreen } />
     </Tab.Navigator>
   );
 }
@@ -51,6 +52,9 @@ function getTabBarIcon (routeName, focused) {
       break;
     case 'Check-in':
       iconName = focused ? 'clipboard-check' : 'clipboard-check-outline';
+      break;
+    case 'Welcome':
+      iconName = 'book';
       break;
   }
 
