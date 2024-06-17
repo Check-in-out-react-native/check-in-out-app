@@ -1,5 +1,5 @@
 import { style } from "./style";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator,ScrollView } from "react-native";
 import {  List, IconButton } from "react-native-paper";
 import MesaCard from "../../components/MesaCard";
 import ModalMesa from "../../components/ModalMesa/index";
@@ -50,24 +50,27 @@ const MesaScreen = () => {
     const TrashIcon = ({id}) => <IconButton icon="trash-can" onPress={() => excluirMesa(id)}/>;
 
     return (
-        <View style={ loading ? style.whiteOverlay : style.view }>
-            <ModalMesa setVisible={setVisible} visible={visible}/>
-            { 
-                loading ? <ActivityIndicator animating={loading} color='orange' size='large' />
-                
-                : <List.Section style={{width: '100%'}}>
-                    <List.Item 
-                key={999} 
-                title={'Nova Mesa'} 
-                right={() => <IconButton size={25} style={{height: 25}} icon='plus-circle' iconColor="green" onPress={showModal} centered />}
-                style={{display: 'flex', width: '100%'}}
-            /> 
-            </List.Section> 
-            } 
-            {principal.mesas.map((p, key) => <MesaCard mesa={p} key={key} right={() => <TrashIcon id={p.id_cliente} />}/> )}
-            
-        </View>
-    )
+        <ScrollView contentContainerStyle={loading ? style.whiteOverlay : style.scrollViewContent}>
+            <View style={style.view}>
+                <ModalMesa setVisible={setVisible} visible={visible} />
+                {loading ? (
+                    <ActivityIndicator animating={loading} color='orange' size='large' />
+                ) : (
+                    <List.Section style={{ width: '100%' }}>
+                        <List.Item
+                            key={999}
+                            title={'Nova Mesa'}
+                            right={() => <IconButton size={25} style={{ height: 25 }} icon='plus-circle' iconColor="green" onPress={showModal} />}
+                            style={{ display: 'flex', width: '100%' }}
+                        />
+                    </List.Section>
+                )}
+                {principal.mesas.map((p, key) => (
+                    <MesaCard mesa={p} key={key} right={() => <TrashIcon id={p.id_cliente} />} />
+                ))}
+            </View>
+        </ScrollView>
+    );
 };
 
 export { MesaScreen };
