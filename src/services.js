@@ -30,7 +30,7 @@ const fetchClientePorQtd = (dto, cbSuccess, cbError) => {
         .then(response => {
             const success = response.status === 200;
 
-            if(success) return cbSuccess(response.data);
+            if (success) return cbSuccess(response.data);
         })
         .catch(() => cbError());
 };
@@ -40,7 +40,7 @@ const fetchEnviarClienteFila = (dto, cbSuccess, cbError) => {
         .then(response => {
             const success = response.status === 200;
 
-            if(success) return cbSuccess(response.data);
+            if (success) return cbSuccess(response.data);
         })
         .catch(() => cbError());
 };
@@ -58,26 +58,34 @@ const fetchCheckinCliente = (dto, cbSuccess, cbError) => {
         .then(response => {
             const success = response.status === 200;
 
-            if(success) return cbSuccess();
+            if (success) return cbSuccess();
         })
         .catch(() => cbError());
-}
+};
 
-const fetchExcluirMesa = (dto, cbSuccess, cbError) => {
-    axios.post(`${baseUrl}excluir_cliente_fila.php`, new URLSearchParams(dto))
+const fetchAdicionaMesa = (dto, cbSuccess, cbError) => {
+    axios.post(`${baseUrl}add_mesa.php`, new URLSearchParams(dto))
         .then(response => {
             if (response.status === 200) return cbSuccess();
         })
         .catch(() => cbError());
 };
 
-export { 
-    fetchEnviarClienteFila, 
-    fetchMesas, 
-    fetchExcluirCliente, 
-    fetchEspera, 
-    fetchCheckOut, 
+// const fetchExcluirMesa = (dto, cbSuccess, cbError) => {
+//     axios.post(`${baseUrl}excluir_cliente_fila.php`, new URLSearchParams(dto))
+//         .then(response => {
+//             if (response.status === 200) return cbSuccess();
+//         })
+//         .catch(() => cbError());
+// };
+
+export {
+    fetchEnviarClienteFila,
+    fetchMesas,
+    fetchExcluirCliente,
+    fetchEspera,
+    fetchCheckOut,
     fetchClientePorQtd,
     fetchCheckinCliente,
-    fetchExcluirMesa
+    fetchAdicionaMesa
 };
