@@ -1,6 +1,6 @@
 
 import { style } from './style';
-import {validateQntdLugares } from './validation';
+import { validateQntdLugares } from './validation';
 import { Modal, Button, Portal, Surface, IconButton, TextInput } from 'react-native-paper';
 import { Text } from 'react-native';
 import { useState, useContext } from 'react';
@@ -20,7 +20,7 @@ const ModalMesa = ({ setVisible, visible }) => {
 
   const cadastrarMesa = () => {
     const qntdLugaresError = validateQntdLugares(qntdLugares);
-    
+
 
     if (qntdLugaresError) {
       setErrors({ qntdLugares: qntdLugaresError });
@@ -28,12 +28,19 @@ const ModalMesa = ({ setVisible, visible }) => {
     }
 
     const dto = {
-      qtd_lugares: qntdLugares
+      qtd_lugares: parseInt(qntdLugares),
     };
 
     const cbSuccess = (data) => {
+      const novaMesa = {
+        qtd_lugares: dto.qtd_lugares,
 
-    
+      };
+
+      setPrincipal(prev => ({
+        ...prev,
+        mesas: [...prev.mesas, novaMesa]
+      }));
 
       hideModal();
 
@@ -62,7 +69,7 @@ const ModalMesa = ({ setVisible, visible }) => {
           <Text style={{ fontSize: 20 }}>Cadastro de mesa</Text>
           <IconButton icon="close" onPress={hideModal} style={{ width: 20 }} />
         </Surface>
-  
+
         <TextInput
           label="Quantidade de lugares"
           value={qntdLugares}
