@@ -25,18 +25,17 @@
 
 ## Requisitos Obrigatórios
 
-- [] No mínimo 4 telas
+- [x] No mínimo 4 telas
 - [x] Nome e ícone do App personalizado
 - [x] Persistência dos dados
-- [ ] No mínimo 2 operações no estilo CRUD (Cadastro, edição, listagem, exclusão).
+- [x] No mínimo 2 operações no estilo CRUD (Cadastro, edição, listagem, exclusão).
 
 ## Requisitos Opcionais
 
-- [ ] Mapas e geolocalização
+- [x] Mapas e geolocalização
 - [x] Criar uma API online para persistência dos dados ou utilizar o Firebase
-- [ ] Integração com um App WEB já existente
 - [x] Integração com alguma API externa
-- [ ] Publicar o App
+- [x] Publicar o App
 
 
 ### Instalação e execução
