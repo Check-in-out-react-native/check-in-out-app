@@ -1,6 +1,6 @@
 import { style } from "./style";
-import { View, ActivityIndicator } from "react-native";
-import {  List, IconButton } from "react-native-paper";
+import { View, ActivityIndicator, ScrollView } from "react-native";
+import { List, IconButton } from "react-native-paper";
 import MesaCard from "../../components/MesaCard";
 import ModalMesa from "../../components/ModalMesa/index";
 import { useContext, useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import { fetchMesas, fetchExcluirMesa } from "../../services";
 
 const MesaScreen = () => {
     const [visible, setVisible] = useState(false);
-    const { principal, setPrincipal } = useContext(PrincipalContext) ;
+    const { principal, setPrincipal } = useContext(PrincipalContext);
     const [loading, setLoading] = useState(true);
 
     const showModal = () => setVisible(true);
@@ -17,57 +17,59 @@ const MesaScreen = () => {
     const excluirMesa = (id) => {
         const cbSuccess = () => {
             setPrincipal((prev) => ({
-                ...prev, 
-                espera: prev.espera.filter(p => p.id_cliente !== id )
+                ...prev,
+                mesas: prev.mesas.filter(p => p.id_cliente !== id),
             }));
-            setNotificacao({ 
-                msg: 'Item excluído com sucesso!', 
-                success: true, 
-                visible: true 
+            setNotificacao({
+                msg: 'Item excluído com sucesso!',
+                success: true,
+                visible: true,
             });
         };
 
         const cbError = () => {
-            setNotificacao({ 
-                msg: 'Não foi possível remover a mesa', 
-                success: false, 
-                visible: true 
+            setNotificacao({
+                msg: 'Não foi possível remover a mesa',
+                success: false,
+                visible: true,
             });
         };
 
         fetchExcluirMesa({ id_cliente: id }, cbSuccess, cbError);
     };
 
-
     useEffect(() => {
         setLoading(true);
         fetchMesas((data) => {
             setLoading(false);
-            setPrincipal({...principal, mesas: data });
+            setPrincipal({ ...principal, mesas: data });
         });
     }, [principal.mesaEdit]);
 
-    const TrashIcon = ({id}) => <IconButton icon="trash-can" onPress={() => excluirMesa(id)}/>;
+    const TrashIcon = ({ id }) => <IconButton icon="trash-can" onPress={() => excluirMesa(id)} />;
 
     return (
-        <View style={ loading ? style.whiteOverlay : style.view }>
-            <ModalMesa setVisible={setVisible} visible={visible}/>
-            { 
-                loading ? <ActivityIndicator animating={loading} color='orange' size='large' />
-                
-                : <List.Section style={{width: '100%'}}>
-                    <List.Item 
-                key={999} 
-                title={'Nova Mesa'} 
-                right={() => <IconButton size={25} style={{height: 25}} icon='plus-circle' iconColor="green" onPress={showModal} centered />}
-                style={{display: 'flex', width: '100%'}}
-            /> 
-            </List.Section> 
-            } 
-            {principal.mesas.map((p, key) => <MesaCard mesa={p} key={key} right={() => <TrashIcon id={p.id_cliente} />}/> )}
-            
-        </View>
-    )
+        <ScrollView contentContainerStyle={loading ? style.whiteOverlay : style.scrollViewContent}>
+            <View style={style.view}>
+                <ModalMesa setVisible={setVisible} visible={visible} />
+                {loading ? (
+                    <ActivityIndicator animating={loading} color='orange' size='large' />
+                ) : (
+                    <List.Section style={{ width: '100%' }}>
+                        <List.Item
+                            key={999}
+                            title={'Nova Mesa'}
+                            right={() => <IconButton size={25} style={{ height: 25 }} icon='plus-circle' iconColor="green" onPress={showModal} />}
+                            style={{ display: 'flex', width: '100%' }}
+                        />
+                    </List.Section>
+                )}
+                {principal.mesas && principal.mesas.map((p, key) => (
+                    <MesaCard mesa={p} key={key} right={() => <TrashIcon id={p.id_cliente} />} />
+                ))}
+            </View>
+        </ScrollView>
+    );
 };
 
 export { MesaScreen };
