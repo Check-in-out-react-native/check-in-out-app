@@ -1,7 +1,3 @@
-<p align="center">
-    <img src='/tela.png' style='height: 350px;'/>
-</p>
-
 ## <p align="center">Organizador de Mesas e Filas para Restaurantes</p>
 
 <p align="center">Este aplicativo foi projetado para ajudar os restaurantes a gerenciar suas mesas e filas de forma eficiente. Com essa ferramenta, os gerentes de restaurante podem facilmente organizar e controlar as mesas, além de gerenciar as filas de clientes.
