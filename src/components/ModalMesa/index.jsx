@@ -1,4 +1,3 @@
-
 import { style } from './style';
 import { validateQntdLugares } from './validation';
 import { Modal, Button, Portal, Surface, IconButton, TextInput } from 'react-native-paper';
@@ -21,7 +20,6 @@ const ModalMesa = ({ setVisible, visible }) => {
   const cadastrarMesa = () => {
     const qntdLugaresError = validateQntdLugares(qntdLugares);
 
-
     if (qntdLugaresError) {
       setErrors({ qntdLugares: qntdLugaresError });
       return;
@@ -33,13 +31,14 @@ const ModalMesa = ({ setVisible, visible }) => {
 
     const cbSuccess = (data) => {
       const novaMesa = {
+        id_mesa: data.id_mesa,
         qtd_lugares: dto.qtd_lugares,
-
+        reserva: false
       };
 
       setPrincipal(prev => ({
         ...prev,
-        mesas: [...prev.mesas, novaMesa]
+        mesas: [...prev.mesas, novaMesa],
       }));
 
       hideModal();
@@ -47,14 +46,15 @@ const ModalMesa = ({ setVisible, visible }) => {
       setNotificacao({
         visible: true,
         success: true,
-        msg: 'Mesa salva com sucesso!'
+        msg: 'Mesa salva com sucesso!',
       });
     };
-    const cbError = () => {
+
+    const cbError = (error) => {
       setNotificacao({
         visible: true,
         success: false,
-        msg: 'Não foi possível salvar mesa!'
+        msg: 'Não foi possível salvar mesa!',
       });
       hideModal();
     };
