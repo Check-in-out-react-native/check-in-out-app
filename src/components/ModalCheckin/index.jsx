@@ -54,7 +54,7 @@ const ModalCheckIn = () => {
 
         fetchCheckinCliente({
             id_cliente: reserva.selectedList[0]._id,
-            id_mesa: principal.mesaEdit.id_mesa
+            id_mesa: principal?.mesaEdit?.id_mesa
         }, cbSuccess, cbError);
     };
 
@@ -62,7 +62,7 @@ const ModalCheckIn = () => {
         <Portal>
             <Modal visible={modalCheckin?.visivel} dismissable={false} contentContainerStyle={style.modalStyle}>
                 <Surface elevation={0}  style={ style.titleModalStyle }>
-                    <Text style={{ fontSize: 20 }}>Check-in mesa { principal.mesaEdit.id_mesa }</Text>
+                    <Text style={{ fontSize: 20 }}>Check-in mesa { principal?.mesaEdit?.id_mesa }</Text>
                     <IconButton icon="close" onPress={ hideModal } style={{ width: 20 }} />
                 </Surface>
                 <PaperSelect

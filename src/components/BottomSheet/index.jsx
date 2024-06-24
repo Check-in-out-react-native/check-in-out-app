@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import MesaDetalheScreen from '../../screens/MesaDetalhesScreen';
 
-export default function Example({refRBSheet}) {
+export default function BottomSheetMesa({refRBSheet}) {
   return (
     <View style={{flex: 1}}>
       <RBSheet

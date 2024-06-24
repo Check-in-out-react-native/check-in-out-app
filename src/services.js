@@ -77,14 +77,14 @@ const fetchAdicionaMesa = (dto, cbSuccess, cbError) => {
         .catch(error => cbError('Error:', error));
 };
 
-// const fetchExcluirMesa = (dto, cbSuccess, cbError) => {
-//     axios.post(`${baseUrl}excluir_cliente_fila.php`, new URLSearchParams(dto))
-//         .then(response => {
-//             if (response.status === 200) cbSuccess();
-//             else cbError(`Error ${response.status}: ${response.statusText}`);
-//         })
-//         .catch(error => cbError('Error:', error));
-// };
+const fetchExcluirMesa = (dto, cbSuccess, cbError) => {
+    axios.post(`${baseUrl}excluir_mesa.php`, new URLSearchParams(dto))
+        .then(response => {
+            if (response.status === 200) cbSuccess();
+            else cbError(`Error ${response.status}: ${response.statusText}`);
+        })
+        .catch(error => cbError('Error:', error));
+};
 
 export {
     fetchEnviarClienteFila,
@@ -94,5 +94,6 @@ export {
     fetchCheckOut,
     fetchClientePorQtd,
     fetchCheckinCliente,
-    fetchAdicionaMesa
+    fetchAdicionaMesa,
+    fetchExcluirMesa
 };

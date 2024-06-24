@@ -19,6 +19,7 @@ export const style = StyleSheet.create({
     scrollViewContent: {
         flexGrow: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        display: 'contents'
     }
 });

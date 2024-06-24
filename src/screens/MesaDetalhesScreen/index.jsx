@@ -1,24 +1,48 @@
 import { style } from './style';
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Text } from 'react-native';
-import { Avatar, Surface, Button } from 'react-native-paper';
+import { Avatar, Surface, Button, IconButton } from 'react-native-paper';
 import { PrincipalContext } from '../../context/PrincipalProvider';
-import { fetchCheckOut, fetchClientePorQtd } from '../../services';
+import { fetchCheckOut, fetchClientePorQtd, fetchExcluirMesa } from '../../services';
 
 const MesaDetalheScreen = () => {
-  const [visible, setVisible] = useState(false);
   const { 
     principal, 
     setPrincipal, 
     setNotificacao,
     setEsperaCheckin ,
     setModalCheckin 
-  } = useContext(PrincipalContext);
-
+    } = useContext(PrincipalContext);
+    
   const showModal = () => setModalCheckin({visivel: true});
 
+  const excluirMesa = () => {
+    const cbSuccess = () => {
+        setPrincipal((prev) => ({
+            ...prev,
+            mesas: prev.mesas.filter(p => p.id_mesa !== principal?.mesaEdit?.id_mesa),
+            mesaEdit: null 
+        }));
+        setNotificacao({
+            msg: 'Item excluído com sucesso!',
+            success: true,
+            visible: true,
+        });
+    };
+
+    const cbError = () => {
+        setNotificacao({
+            msg: 'Não foi possível remover a mesa',
+            success: false,
+            visible: true,
+        });
+    };
+
+    fetchExcluirMesa({ id_mesa: principal?.mesaEdit?.id_mesa }, cbSuccess, cbError);
+};
+
   const fazerCheckin = () => {
-    fetchClientePorQtd({ qtd_lugares: principal.mesaEdit.qtd_lugares }, (data) => {
+    fetchClientePorQtd({ qtd_lugares: principal?.mesaEdit?.qtd_lugares }, (data) => {
       if (data.length) {
         setEsperaCheckin(data);
         showModal(data);
@@ -30,7 +54,7 @@ const MesaDetalheScreen = () => {
 
   const fazerCheckout = () => {
     const dto = {
-      id_mesa: principal.mesaEdit.id_mesa
+      id_mesa: principal?.mesaEdit?.id_mesa
     };
   
     fetchCheckOut(dto, () => {
@@ -73,12 +97,12 @@ const MesaDetalheScreen = () => {
       </Surface>
       <Surface elevation={0} style={{display: 'flex', flexDirection: 'row', marginTop: 10, marginBottom: 'auto', marginLeft: 30, gap: 10}}>
         { 
-          !principal.mesaEdit.reserva ? 
+          !principal?.mesaEdit?.reserva ? 
           <Button mode='contained' style={{width: 130}} onPress={ fazerCheckin }>Check-in</Button>
           :
           <Button mode='contained' style={{width: 130}} onPress={ fazerCheckout }>Check-out</Button> 
           }
-        <Button mode='contained' style={{width: 130}} onPress={ fazerCheckin }>Excluir mesa</Button>
+        <Button mode='contained' style={{width: 130}} onPress={ excluirMesa }>Excluir mesa</Button>
       </Surface>
     </Surface>
   );
