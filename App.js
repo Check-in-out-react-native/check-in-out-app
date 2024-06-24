@@ -16,7 +16,6 @@ const theme = {
 
 
 const Navigation = () => {
-
   return (
     <NavigationContainer >
       <BottomNav />

@@ -6,8 +6,15 @@ import { useContext, useEffect, useState } from 'react';
 import { fetchCheckinCliente } from '../../services';
 import { PrincipalContext } from '../../context/PrincipalProvider';
 
-const ModalCheckIn = ({setVisible, visible}) => {
-    const { principal, setPrincipal, setNotificacao, esperaCheckin } = useContext(PrincipalContext);
+const ModalCheckIn = () => {
+    const { 
+        principal, 
+        setPrincipal, 
+        setNotificacao, 
+        esperaCheckin,
+        modalCheckin,
+        setModalCheckin 
+    } = useContext(PrincipalContext);
     const [reserva, setReserva] = useState({
         value: '',
         list: [],
@@ -24,7 +31,7 @@ const ModalCheckIn = ({setVisible, visible}) => {
         })
     }, [esperaCheckin]);
 
-    const hideModal = () => setVisible(false);
+    const hideModal = () => setModalCheckin({visivel: false});
 
     const checkIn = () => {
         const cbSuccess = () => {
@@ -53,7 +60,7 @@ const ModalCheckIn = ({setVisible, visible}) => {
 
     return (
         <Portal>
-            <Modal visible={visible} dismissable={false} contentContainerStyle={style.modalStyle}>
+            <Modal visible={modalCheckin?.visivel} dismissable={false} contentContainerStyle={style.modalStyle}>
                 <Surface elevation={0}  style={ style.titleModalStyle }>
                     <Text style={{ fontSize: 20 }}>Check-in mesa { principal.mesaEdit.id_mesa }</Text>
                     <IconButton icon="close" onPress={ hideModal } style={{ width: 20 }} />

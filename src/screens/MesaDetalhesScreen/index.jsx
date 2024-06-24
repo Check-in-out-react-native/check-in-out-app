@@ -1,21 +1,21 @@
 import { style } from './style';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Text } from 'react-native';
 import { Avatar, Surface, Button } from 'react-native-paper';
-import ModalCheckIn from '../../components/ModalCheckin/index';
 import { PrincipalContext } from '../../context/PrincipalProvider';
 import { fetchCheckOut, fetchClientePorQtd } from '../../services';
 
-const MesaDetalheScreen = ( route ) => {
+const MesaDetalheScreen = () => {
   const [visible, setVisible] = useState(false);
   const { 
     principal, 
     setPrincipal, 
     setNotificacao,
-    setEsperaCheckin 
+    setEsperaCheckin ,
+    setModalCheckin 
   } = useContext(PrincipalContext);
 
-  const showModal = () => setVisible(true);
+  const showModal = () => setModalCheckin({visivel: true});
 
   const fazerCheckin = () => {
     fetchClientePorQtd({ qtd_lugares: principal.mesaEdit.qtd_lugares }, (data) => {
@@ -44,30 +44,42 @@ const MesaDetalheScreen = ( route ) => {
     });
   };
 
-  useEffect(() => {
-    setPrincipal(prev => ({...prev, mesaEdit: route.route.params}));
-  }, []);
-
   return (
-    <Surface elevation={ 0 } style={{ gap: 30, margin: 30 }}>
-      <Surface style={ style.surface } elevation={ 0 }>
-        <Text >
-          Status { principal.mesaEdit.reserva ? 'reservada' : 'disponível' }
-        </Text>
-        <Avatar.Icon icon="checkbox-blank-circle" color={ principal.mesaEdit.reserva ? 'red' : 'green' } size={ 30 } style={ style.avatar }/>
-      </Surface>
+    <Surface 
+      elevation={ 0 } 
+      style={{ 
+        gap: 10, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: "space-between", 
+        height: 'inherit'
+      }}>
+      <Surface elevation={0} style={{marginLeft: 30}}>
+        <Surface style={ style.surface } elevation={ 0 }>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            Número: { principal?.mesaEdit?.id_mesa }
+          </Text>
+        </Surface>
+        <Surface style={ style.surface } elevation={ 0 }>
+          <Text >
+            Status { principal?.mesaEdit?.reserva ? 'reservada' : 'disponível' }
+          </Text>
+          <Avatar.Icon icon="checkbox-blank-circle" color={ principal?.mesaEdit?.reserva ? 'red' : 'green' } size={ 30 } style={ style.avatar }/>
+        </Surface>
 
-      <Surface style={ style.surface } elevation={ 0 }>
-        <Text>Quantidade de lugares: { principal.mesaEdit.qtd_lugares }</Text> 
+        <Surface style={ style.surface } elevation={ 0 }>
+          <Text>Quantidade de lugares: { principal?.mesaEdit?.qtd_lugares }</Text> 
+        </Surface>
       </Surface>
-
-      { 
-        !principal.mesaEdit.reserva ? 
-          <Button mode='contained' style={{width: 200}} onPress={ fazerCheckin }>Check-in</Button>
+      <Surface elevation={0} style={{display: 'flex', flexDirection: 'row', marginTop: 10, marginBottom: 'auto', marginLeft: 30, gap: 10}}>
+        { 
+          !principal.mesaEdit.reserva ? 
+          <Button mode='contained' style={{width: 130}} onPress={ fazerCheckin }>Check-in</Button>
           :
-          <Button mode='contained' style={{width: 200}} onPress={ fazerCheckout }>Check-out</Button> }
-
-      <ModalCheckIn setVisible={ setVisible } visible={ visible } />
+          <Button mode='contained' style={{width: 130}} onPress={ fazerCheckout }>Check-out</Button> 
+          }
+        <Button mode='contained' style={{width: 130}} onPress={ fazerCheckin }>Excluir mesa</Button>
+      </Surface>
     </Surface>
   );
 };

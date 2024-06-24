@@ -10,6 +10,10 @@ const PrincipalProvider = ({children}) => {
         mesaEdit: {}
     });
 
+    const [modalCheckin, setModalCheckin] = useState({
+        visivel: false
+    });
+
     const [notificacao, setNotificacao] = useState({
         success: false,
         visible: false,
@@ -25,7 +29,9 @@ const PrincipalProvider = ({children}) => {
             notificacao, 
             setNotificacao,
             esperaCheckin,
-            setEsperaCheckin 
+            setEsperaCheckin,
+            modalCheckin, 
+            setModalCheckin
         }}>
           {children}
         </PrincipalContext.Provider>
