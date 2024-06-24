@@ -3,7 +3,7 @@ import { createContext } from "react";
 
 const PrincipalContext = createContext();
 
-const PrincipalProvider = ({children}) => {
+const PrincipalProvider = ({ children }) => {
     const [principal, setPrincipal] = useState({
         mesas: [],
         espera: [],
@@ -23,17 +23,17 @@ const PrincipalProvider = ({children}) => {
     const [esperaCheckin, setEsperaCheckin] = useState([]);
 
     return (
-        <PrincipalContext.Provider value={{ 
-            principal, 
-            setPrincipal, 
-            notificacao, 
+        <PrincipalContext.Provider value={{
+            principal,
+            setPrincipal,
+            notificacao,
             setNotificacao,
             esperaCheckin,
             setEsperaCheckin,
             modalCheckin, 
             setModalCheckin
         }}>
-          {children}
+            {children}
         </PrincipalContext.Provider>
     );
 };

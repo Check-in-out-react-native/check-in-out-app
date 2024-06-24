@@ -1,23 +1,24 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const style = StyleSheet.create({
     view: {
         display: 'flex',
         flexDirection: 'row',
-        flexWrap: "wrap",
+        flexWrap: 'wrap',
         gap: 10,
-        marginLeft: "auto",
-        marginRight: "auto",
+        marginLeft: 'auto',
+        marginRight: 'auto',
         marginTop: 10,
         width: '90%'
     },
     whiteOverlay: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'      
-     }
+        justifyContent: 'center'
+    },
+    scrollViewContent: {
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
